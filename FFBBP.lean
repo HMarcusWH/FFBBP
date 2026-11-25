@@ -127,6 +127,64 @@ theorem m16_centeredSums :
     (allocationB.map (fun x => centeredX x * centeredY x)).sum = -2 := by
   decide
 
+/-- M03.02: integer numerators for two fixed pairs of coin probabilities,
+    all expressed with denominator 24. The parity and product numerators
+    have denominator 576. -/
+theorem m03_coinParityCounts :
+    (24 * (6 + 6) - 2 * 6 * 6 : Nat) = 216 ∧
+    (24 * (3 + 8) - 2 * 3 * 8 : Nat) = 216 ∧
+    (6 * 6 : Nat) = 36 ∧
+    (3 * 8 : Nat) = 24 ∧
+    ((6, 6) : Nat × Nat) ≠ (3, 8) ∧
+    ((6, 6) : Nat × Nat) ≠ (8, 3) := by
+  decide
+
+/-- M04.02: two equally weighted lists of binary pairs. -/
+def equalBits : List (Nat × Nat) := [(0, 0), (1, 1)]
+def oppositeBits : List (Nat × Nat) := [(0, 1), (1, 0)]
+
+/-- Fixed marginal counts, equality-event counts and centered product sums.
+    The doubled deviations give covariance numerators with denominator eight. -/
+theorem m04_binaryMarginalCounts :
+    equalBits.length = 2 ∧ oppositeBits.length = 2 ∧
+    equalBits.map Prod.fst = [0, 1] ∧
+    oppositeBits.map Prod.fst = [0, 1] ∧
+    equalBits.map Prod.snd = [0, 1] ∧
+    oppositeBits.map Prod.snd = [1, 0] ∧
+    (equalBits.filter (fun x => x.1 == x.2)).length = 2 ∧
+    (oppositeBits.filter (fun x => x.1 == x.2)).length = 0 ∧
+    (equalBits.map (fun x =>
+      (2 * Int.ofNat x.1 - 1) * (2 * Int.ofNat x.2 - 1))).sum = 2 ∧
+    (oppositeBits.map (fun x =>
+      (2 * Int.ofNat x.1 - 1) * (2 * Int.ofNat x.2 - 1))).sum = -2 := by
+  decide
+
+/-- M06.02: deterministic values zero and ten, and their two-point mixture. -/
+def mixtureLow : List Int := [0, 0]
+def mixtureHigh : List Int := [10, 10]
+def mixtureBoth : List Int := [0, 10]
+
+/-- The two fixed within-list centered-square sums vanish, while the
+    equal-weight mixture has mean five and centered-square sum fifty. -/
+theorem m06_mixtureCounts :
+    mixtureLow.length = 2 ∧ mixtureHigh.length = 2 ∧ mixtureBoth.length = 2 ∧
+    mixtureLow.sum = 0 ∧ mixtureHigh.sum = 20 ∧ mixtureBoth.sum = 10 ∧
+    (mixtureLow.map (fun x => x * x)).sum = 0 ∧
+    (mixtureHigh.map (fun x => (x - 10) * (x - 10))).sum = 0 ∧
+    (mixtureBoth.map (fun x => (x - 5) * (x - 5))).sum = 50 := by
+  decide
+
+/-- M16.03: swapping components preserves the two fixed equally weighted
+    lists up to reversal, yet their equality-event counts differ. -/
+theorem m16_swapCounts :
+    allocationA.map (fun x => (x.2, x.1)) = allocationA ∧
+    allocationB.map (fun x => (x.2, x.1)) = allocationB.reverse ∧
+    (allocationA.filter (fun x => x.1 == x.2)).length = 2 ∧
+    (allocationB.filter (fun x => x.1 == x.2)).length = 0 ∧
+    ((allocationB.map (fun x => (x.2, x.1))).filter
+      (fun x => x.1 == x.2)).length = 0 := by
+  decide
+
 end AbstractExamples
 
 #print axioms bootstrapSmoke
@@ -137,5 +195,9 @@ end AbstractExamples
 #print axioms AbstractExamples.m02_prefixCounts
 #print axioms AbstractExamples.m05_equalMeanCounts
 #print axioms AbstractExamples.m16_centeredSums
+#print axioms AbstractExamples.m03_coinParityCounts
+#print axioms AbstractExamples.m04_binaryMarginalCounts
+#print axioms AbstractExamples.m06_mixtureCounts
+#print axioms AbstractExamples.m16_swapCounts
 
 end FFBBP
