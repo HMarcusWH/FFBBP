@@ -1,11 +1,12 @@
 # Research status
 
-**25 November 2026 — initial public documentation bootstrap.**
+**25 November 2026 — G02 inventory reconciliation.**
 
 | Area | Status |
 | --- | --- |
 | Public research repository | Initialized; documentation only |
-| Historical M01–M17 supplementary notes | Consolidated separately; not imported or independently reviewed here |
+| Historical M01–M17 supplementary notes | [14 candidate documents inventoried](archive-index/RESEARCH_INVENTORY.md); not imported or independently reviewed here |
+| Publication review | Pending (G03); inventory does not grant clearance |
 | Lean 4 project | Not initialized |
 | Kernel-checked proofs in this repository | None |
 | Independent theorem-statement and axiom review | Not performed |
