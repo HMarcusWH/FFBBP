@@ -1,6 +1,6 @@
 # Research status
 
-**25 November 2026 — Post-edition Batch 2 fixed-example verification.**
+**26 November 2026 — Post-edition Batch 3 fixed-example submission.**
 
 | Area | Status |
 | --- | --- |
@@ -15,6 +15,7 @@
 | Automated checks | [G07 evidence receipt](verification/G07_BOOTSTRAP_RECEIPT.md): both hosted jobs passed |
 | Kernel-checked proofs in this repository | One arithmetic smoke theorem and seven fixed-example declarations accepted by [Batch 2 CI](https://github.com/HMarcusWH/FFBBP/actions/runs/45712445754); all eight individually reported axiom-free |
 | Additional fixed-example proofs | [Batch 2 register](verification/ABSTRACT_BATCH2.md): M02.03, M05.01 and M16.02 passed compilation and automated named axiom checks; downloaded artifact and lockfile verified |
+| Batch 3 fixed-example candidates | [Batch 3 register](verification/ABSTRACT_BATCH3.md): M03.02, M04.02, M06.02 and M16.03 submitted to [CI](https://github.com/HMarcusWH/FFBBP/actions/runs/45723822800); twelve named axiom reports required; compiler acceptance pending |
 | Abstract formalization scope | [G08 R1 proof register](verification/G08_R1_PROOF_REGISTER.md); initial fixed examples M04, M08, M14, M16; Batch 2 adds M02, M05 and an additional M16 example |
 | Claim reconciliation | [G11 register](verification/G11_CLAIM_RECONCILIATION.md): historical G11 coverage retained; current coverage is six sections with Lean-checked fixed examples and Python checks, eleven prose/synthesis only |
 | Statement-level inventory | [Abstract statement inventory](verification/ABSTRACT_STATEMENT_INVENTORY.md): 40 editorially grouped public claims/examples; 7 with Lean and Python evidence, 0 with Python evidence only, 33 prose/logical discussion; exact grouped-claim scope retained |
