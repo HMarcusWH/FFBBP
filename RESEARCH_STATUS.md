@@ -1,6 +1,6 @@
 # Research status
 
-**25 November 2026 — G11 public mathematical claim reconciliation.**
+**25 November 2026 — G12 scoped abstract mathematics edition review.**
 
 | Area | Status |
 | --- | --- |
@@ -19,6 +19,7 @@
 | Internal theorem-statement and named-axiom review | [G09 assurance](verification/G09_PROOF_ASSURANCE.md): five named reports and evidence archive verified; revised named-check CI passed |
 | Reproducibility | [G10 assessment](verification/G10_REPRODUCIBILITY.md): two hosted builds passed, five source/configuration blobs matched across both runs and main, both evidence members byte-identical |
 | Independent third-party reproduction, theorem-statement review and library-wide axiom audit | Not performed |
+| Versioned abstract mathematics edition | [0.1.0-rc.1 candidate](editions/ABSTRACT_MATH_0.1.0_RC1.md); 19-file pinned baseline, six executable/build inputs match successful CI; scoped review complete, no GitHub Release or tag created |
 | General mathematical and scientific qualification | Not established |
 | Operational or full release | Not authorized |
 
