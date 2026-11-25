@@ -19,6 +19,7 @@ This repository documents abstract mathematical foundations and limitations of s
 - [G11 mathematical claim reconciliation](verification/G11_CLAIM_RECONCILIATION.md)
 - [Automated mathematical checks](.github/workflows/mathematics.yml)
 - [G07 hosted verification receipt](verification/G07_BOOTSTRAP_RECEIPT.md)
+- [Statement-level mathematical inventory](verification/ABSTRACT_STATEMENT_INVENTORY.md)
 - [Research status](RESEARCH_STATUS.md)
 - [Publication scope](governance/PUBLICATION_SCOPE.md)
 - [Bootstrap plan](docs/BOOTSTRAP.md)
