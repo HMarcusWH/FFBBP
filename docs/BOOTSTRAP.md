@@ -10,7 +10,7 @@ The public repository is a clean documentation and abstract mathematics project.
 | G04 | Prepare newly authored public mathematical exposition and references | [Public exposition complete](../mathematics/FOUNDATIONS.md); prose only |
 | G05 | Publish standalone abstract mathematical examples | [Six exact checks passed locally](../examples/abstract_counterexamples.py); source blob matched |
 | G06 | Establish a Lean 4 project for abstract mathematics | Configuration committed; five static checks passed; four source blobs matched; compiler and resolved dependency lock pending |
-| G07 | Establish compilation and proof verification for that project | Next |
+| G07 | Establish compilation and proof verification for that project | [CI launched](https://github.com/HMarcusWH/FFBBP/actions/runs/45699117744); six hosted Python checks passed, Lean build and manifest acceptance pending |
 | G08 | Formalize abstract limitations and counterexamples | Pending |
 | G09 | Review statements, assumptions and axiom dependencies | Pending |
 | G10 | Independently reproduce the mathematical checks | Pending |
