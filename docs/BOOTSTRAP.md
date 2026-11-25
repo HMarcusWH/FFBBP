@@ -14,7 +14,7 @@ The public repository is a clean documentation and abstract mathematics project.
 | G08 | Formalize abstract limitations and counterexamples | [R1: four fixed examples kernel checked](../verification/G08_R1_PROOF_REGISTER.md); all five named declarations axiom-free; scoped batch accepted |
 | G09 | Review statements, assumptions and axiom dependencies | [Scoped internal review and revised named-check CI passed](../verification/G09_PROOF_ASSURANCE.md) |
 | G10 | Independently reproduce the mathematical checks | [Repeated hosted verification passed](../verification/G10_REPRODUCIBILITY.md); independent third-party reproduction outstanding |
-| G11 | Reconcile public claims with actual evidence | Next; retain unresolved G10 independence requirement |
-| G12 | Review a versioned mathematical research edition | Pending |
+| G11 | Reconcile public claims with actual evidence | [Scoped reconciliation complete](../verification/G11_CLAIM_RECONCILIATION.md); all 17 sections classified; G10 independence requirement retained |
+| G12 | Review a versioned mathematical research edition | Next; scoped edition only, independent reproduction and licensing remain outstanding |
 
 The comprehensive historical archive remains separate. This plan does not authorize unrestricted publication of code, data, or operational components. No completed theorem, scientific qualification, or full release is implied.
