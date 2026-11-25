@@ -14,6 +14,7 @@
 | Lean bootstrap smoke test | [Hosted CI passed](https://github.com/HMarcusWH/FFBBP/actions/runs/45699117744); one arithmetic smoke theorem, no axiom dependencies |
 | Automated checks | [G07 evidence receipt](verification/G07_BOOTSTRAP_RECEIPT.md): both hosted jobs passed |
 | Kernel-checked proofs in this repository | One arithmetic smoke theorem and four fixed-example declarations accepted by [CI](https://github.com/HMarcusWH/FFBBP/actions/runs/45699855662); all five individually reported axiom-free |
+| Additional fixed-example candidates | [Batch 2 register](verification/ABSTRACT_BATCH2.md): three new Lean declarations for M02.03, M05.01 and M16.02 submitted to [CI](https://github.com/HMarcusWH/FFBBP/actions/runs/45712445754); eight named axiom reports required, new proof acceptance pending |
 | Abstract formalization scope | [G08 R1 proof register](verification/G08_R1_PROOF_REGISTER.md); fixed examples M04, M08, M14, M16 only |
 | Claim reconciliation | [G11 register](verification/G11_CLAIM_RECONCILIATION.md): 17 public sections accounted for; four with Lean-checked fixed examples and Python checks, two with Python checks only, eleven prose/synthesis only; no new theorem acceptance |
 | Statement-level inventory | [Abstract statement inventory](verification/ABSTRACT_STATEMENT_INVENTORY.md): 40 editorially grouped public claims/examples; 4 with Lean and Python evidence, 3 with Python evidence only, 33 prose/logical discussion; no new proof acceptance |
