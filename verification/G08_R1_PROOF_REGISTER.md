@@ -17,4 +17,16 @@ The previous locked-dependency bootstrap run [45699559058](https://github.com/HM
 
 ## Acceptance status
 
-At submission: four proof candidates; zero newly accepted research-example proofs. The first arithmetic smoke theorem remains verified by G07. Full statement review, library-wide axiom audit and independent reproduction are pending. No general project mathematical obligation is closed.
+At submission: four proof candidates; compiler acceptance pending. Subsequent readback of run 45699855662 confirms both jobs completed successfully. Lean reported a successful build (160 jobs) under v4.35.0 with the committed dependency manifest, and the six Python example tests passed.
+
+The direct compiler log for job 139506796492 contains the following individual reports:
+
+```text
+'FFBBP.bootstrapSmoke' does not depend on any axioms
+'FFBBP.AbstractExamples.m04_noReducedMap' does not depend on any axioms
+'FFBBP.AbstractExamples.m08_overlapCounts' does not depend on any axioms
+'FFBBP.AbstractExamples.m14_parityLoss' does not depend on any axioms
+'FFBBP.AbstractExamples.m16_aggregateAmbiguity' does not depend on any axioms
+```
+
+Accepted: four fixed-example declarations plus the arithmetic smoke theorem, all with no reported axiom dependencies. This is verification of their precise Lean statements, not of every assertion in the corresponding exposition sections. The module-system migration warning persists. GitHub reports artifact 15061659579 for the tested source; the artifact bytes have not been independently rehashed in this review. Full statement review, library-wide axiom audit and independent reproduction remain pending. No general project mathematical obligation is closed.
