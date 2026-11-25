@@ -60,11 +60,19 @@ jobs:
         run: lake exe cache get Mathlib.Data.Nat.Basic
       - name: Build mathematical library
         run: lake build FFBBP
-      - name: Check smoke theorem and its axiom report
+      - name: Check five named declarations and their axiom reports
         run: |
-          set -o pipefail
+          set -euo pipefail
           lake env lean -DwarningAsError=true FFBBP.lean 2>&1 | tee lean-smoke.log
-          grep -F "'FFBBP.bootstrapSmoke' does not depend on any axioms" lean-smoke.log
+          for declaration in \
+            FFBBP.bootstrapSmoke \
+            FFBBP.AbstractExamples.m04_noReducedMap \
+            FFBBP.AbstractExamples.m08_overlapCounts \
+            FFBBP.AbstractExamples.m14_parityLoss \
+            FFBBP.AbstractExamples.m16_aggregateAmbiguity
+          do
+            grep -Fx "'$declaration' does not depend on any axioms" lean-smoke.log
+          done
       - name: Retain generated manifest and compiler output
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
