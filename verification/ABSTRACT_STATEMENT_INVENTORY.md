@@ -7,10 +7,10 @@ Date: 2026-11-25. Companion to the [G11 section-level reconciliation](G11_CLAIM_
 The public foundations exposition, Lean source, Python test source, G11 reconciliation and research status were directly inspected. Source identities:
 
 - `mathematics/FOUNDATIONS.md`: `96c9aa562d203a62540b5fbba0f4229d6555762a`
-- `FFBBP.lean`: `b255ff9d7b7b9094c231c75e69809096fecb9240`
+- `FFBBP.lean`: `5e7dfce2a0f49f0530931c5dd1a576121144ccf3`
 - `examples/abstract_counterexamples.py`: `58d2fb52adae863b5cdcb16f7428f31493670d4a`
 
-Existing verification evidence: [G08 R1 proof register](G08_R1_PROOF_REGISTER.md), [G09 named statement review](G09_PROOF_ASSURANCE.md), [G10 hosted reproducibility](G10_REPRODUCIBILITY.md). No new compiler run, mathematical proof, external literature review, or independent acceptance is claimed in this register.
+Existing verification evidence: [G08 R1 proof register](G08_R1_PROOF_REGISTER.md), [G09 named statement review](G09_PROOF_ASSURANCE.md), [G10 hosted reproducibility](G10_REPRODUCIBILITY.md). [Batch 2 acceptance](ABSTRACT_BATCH2.md) adds three checked fixed-example declarations. This inventory records the observed build; it does not itself launch a new compiler run or establish independent review.
 
 The identifier Mxx.yy denotes a grouped statement or example in the public exposition only. These identifiers are newly assigned for documentary traceability; they do not extend or replace the original project's numbered mathematical obligations. The grouping is editorial, not a canonical theorem decomposition. Definitions, implications, bounds and fixed examples may share a row. The inventory does not assert completeness at the level of individual logical formulas.
 
@@ -29,13 +29,13 @@ Evidence categories:
 | M01.03 | Lower bound | Two-point squared-error lower bound under identical observation laws. | P | Prose proof; no accepted Lean declaration. |
 | M02.01 | Probability proposition | Agreement at a longer finite prefix implies agreement at a shorter prefix. | P | Marginalization argument in prose. |
 | M02.02 | Measure-theoretic proposition | All finite prefix laws determine the law on the sequence product sigma-algebra. | P | Cylinder uniqueness argument in prose. |
-| M02.03 | Fixed counterexample | Independent fair symbols versus a uniformly phased repeating 0011 word: agreement at lengths one and two, disagreement at length three. | T | Python test_m02_finite_horizon_agreement checks word counts, pair counts and the 000 contrast. No Lean declaration. |
+| M02.03 | Fixed counterexample | Independent fair symbols versus a uniformly phased repeating 0011 word: agreement at lengths one and two, disagreement at length three. | L+T | m02_prefixCounts verifies the fixed periodic-phase enumeration and triple counts; Python test_m02_finite_horizon_agreement checks the corresponding example. Equal-weight probability interpretation remains prose. |
 | M02.04 | Conditional-law proposition | Identical history/future joint law gives almost-sure agreement of regular conditional future laws under the stated uniqueness assumptions. | P | Null histories expressly excluded from a pointwise assertion. |
 | M03.01 | Quotient proposition | Law-preserving group orbits lie inside observable-law fibers; the map between quotients is surjective, with the stated condition for injectivity. | P | Prose only. |
 | M03.02 | Fixed counterexample | The two independent Bernoulli parameter pairs have equal parity probabilities but different products and are not swaps. | P | Prose arithmetic and symmetry argument. |
 | M04.01 | Fixed counterexample | Specified three-state deterministic example admits no commuting reduced map. | L+T | m04_noReducedMap; Python test_m04_present_statistic_is_not_future_law checks the conflicting reduced successors. No general stochastic closure theorem. |
 | M04.02 | Fixed counterexample | Identical binary marginals with different joint laws and covariances in the U,V example. | P | Separate from the accepted deterministic-map declaration. |
-| M05.01 | Fixed counterexample | Equal means with total variation distance one for the stated point-mass and two-point mixture. | T | Python test_m05_equal_means_do_not_imply_equal_laws checks normalization, means and TV. |
+| M05.01 | Fixed counterexample | Equal means with total variation distance one for the stated point-mass and two-point mixture. | L+T | m05_equalMeanCounts verifies fixed mass, first-moment and L1 numerators. Python test_m05_equal_means_do_not_imply_equal_laws checks normalization, means and TV. No general probability theorem. |
 | M05.02 | Metric counterexample | Weak and Wasserstein convergence of the stated point masses without TV convergence or absolute continuity. | P | Prose only; not covered by M05.01. |
 | M05.03 | Conditional counterexample | Small unconditional TV in the stated three-element experiment, but conditional TV one. | P | Prose only. |
 | M05.04 | Horizon counterexample | TV of the stated all-zero and independent Bernoulli sequence laws and its two limiting behaviors. | P | Prose only. |
@@ -62,7 +62,7 @@ Evidence categories:
 | M15.01 | Variance example | Parity-sampling variance and comparison with the fixed identified-set diameter from M13. | P | Prose only; the quantities are not asserted additive. |
 | M15.02 | Coverage lower bound | Confidence-set diameter probability and expectation bounds under common observation law, stated measurable coverage and alpha assumptions. | P | Prose only; not a confidence-set construction. |
 | M16.01 | Fixed counterexample | Equal aggregate and component means with different equality-event probabilities for the stated two allocations. | L+T | m16_aggregateAmbiguity proves equal sums/lists and different equality counts for scaled equal-weight lists. Python test_m16_equal_aggregate_distinct_components checks corresponding fixed values. |
-| M16.02 | Fixed example | Different component variances and covariance in the same allocation example. | T | Same Python test explicitly checks first-component variance and covariance; second-component variance follows by symmetry in prose and is not a separately asserted test. Not Lean checked. |
+| M16.02 | Fixed example | Different component variances and covariance in the same allocation example. | L+T | m16_centeredSums checks both centered-square sums and cross-product sums on the scaled lists. The existing Python test explicitly checks first-component variance and covariance; normalization of integer sums remains a prose interpretation. |
 | M16.03 | Symmetry observation | Both allocation laws are unchanged by swapping coordinates, so the difference is not an exchange of coordinates. | P | Prose only; no explicit symmetry assertion in the test or theorem. |
 
 ## Synthesis and notation
@@ -75,14 +75,14 @@ The introductory notation and reading guide define conventions and recommend bac
 | --- | ---: |
 | Public sections accounted for (including M17 synthesis) | 17 |
 | Grouped statement/example rows | 40 |
-| L+T rows | 4 |
-| T-only rows | 3 |
+| L+T rows | 7 |
+| T-only rows | 0 |
 | P rows | 33 |
-| Distinct existing accepted example declarations mapped | 4 |
+| Distinct existing accepted example declarations mapped | 7 |
 | Distinct existing Python test methods mapped | 6 |
 | Arithmetic smoke theorem (separate from research rows) | 1 |
 
-All forty identifiers are unique. All six existing test method names and all four accepted fixed-example declaration names appear in the register. The M16 Python method maps to two rows, so seven rows with some executable evidence do not imply seven tests. Counts are descriptive coverage of grouped public statements, not percentages of theorem completion or scientific qualification. No new theorem acceptance is granted.
+All forty identifiers are unique. All six existing test method names and all seven accepted fixed-example declaration names appear in the register. The M16 Python method maps to two rows, so seven rows with some executable evidence do not imply seven tests. Counts are descriptive coverage of grouped public statements, not percentages of theorem completion or scientific qualification. The three newly accepted example declarations are documented in Batch 2; no general theorem acceptance is granted by this inventory.
 
 ## Remaining assurance
 
