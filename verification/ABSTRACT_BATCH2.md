@@ -24,3 +24,31 @@ All three candidates concern fixed public toy examples. No model-specific infere
 [CI run 45712445754](https://github.com/HMarcusWH/FFBBP/actions/runs/45712445754) tests the submitted commit. The Python job completed successfully; the Lean job was still installing its toolchain at the recorded observation. The revised workflow requires all eight exact axiom-free reports. No new Lean acceptance is recorded before observing its compiler output and completed verification step.
 
 The existing four example declarations and one smoke theorem remain the previously verified results. If the new candidates pass, the statement-level register must be updated only after inspection of the exact compiler reports and statement scopes. Independent third-party reproduction and independent mathematical review remain open. No new edition, tag, license or unrestricted release is granted.
+
+## Observed acceptance and evidence integrity
+
+The submitted run 45712445754 completed both jobs successfully. The Lean job 139550012810 built 160 jobs under Lean 4.35.0 and completed the automated eight-declaration check. Python job 139550012219 passed all six tests under Python 3.14.4. The module-system migration warning remains.
+
+The compiler and automated check each report that the following declarations do not depend on any axioms:
+
+```text
+FFBBP.bootstrapSmoke
+FFBBP.AbstractExamples.m04_noReducedMap
+FFBBP.AbstractExamples.m08_overlapCounts
+FFBBP.AbstractExamples.m14_parityLoss
+FFBBP.AbstractExamples.m16_aggregateAmbiguity
+FFBBP.AbstractExamples.m02_prefixCounts
+FFBBP.AbstractExamples.m05_equalMeanCounts
+FFBBP.AbstractExamples.m16_centeredSums
+```
+
+The actual Actions artifact 15067593533 was downloaded and checked locally. Its 1108 bytes have SHA-256 ff194af614747674068727f021495f899444e0ef0bc7cc4ab8ed1024e7bcf8cd, matching the provider digest; both ZIP members passed CRC checks.
+
+| Member | Bytes | SHA-256 |
+| --- | ---: | --- |
+| lake-manifest.json | 3123 | 4cf42be720e442c8476af0d94dccd7c9228e4abb569b64cd51d5edbd2dc2c79a |
+| lean-smoke.log | 565 | 2f0a0dc377b9a158936a403e3bed2980559a1669fd7eafa10fa67942bebb2894 |
+
+The manifest has nine package revisions and Git blob d0d5afd6f802f8159255011089485e0806a64fc1, matching the committed lockfile. The extracted compiler report contains all eight axiom-free lines. Current source, workflow and build inputs match their tested Git blobs.
+
+Disposition: the three additional fixed-example declarations are accepted within their precise statements. M02.03, M05.01 and M16.02 move from T to L+T in the current [statement inventory](ABSTRACT_STATEMENT_INVENTORY.md). This yields seven grouped statements with matching Lean and Python evidence, zero T-only groups and thirty-three prose/logical discussion groups. Six Python methods remain; the arithmetic smoke theorem is separate. Integer and list statements do not themselves formalize the surrounding probability-measure claims. The earlier frozen edition is unchanged. Independent review, independent reproduction, library-wide axiom audit and original project qualification are not established.
