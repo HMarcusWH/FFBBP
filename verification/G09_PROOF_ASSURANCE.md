@@ -53,3 +53,7 @@ The preceding workflow directly enforced the smoke theorem report only. The rema
 ## Disposition
 
 G09 internal statement and named-axiom review completed, with matching retained artifact and lockfile. Revised CI enforcement awaits its own observed result. G10 independent reproduction is not established. No general model-specific mathematical obligation, scientific qualification or operational release is established by this work.
+
+## Subsequent automated acceptance
+
+The revised run 45707958300 completed both jobs successfully. Its five-declaration axiom-check step passed. See [G10 reproducibility assessment](G10_REPRODUCIBILITY.md) for the fresh artifact comparison and the distinction between repeated hosted verification and independent third-party review. G09's named-check enforcement is now accepted within scope.
