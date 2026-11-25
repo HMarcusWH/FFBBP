@@ -68,6 +68,65 @@ theorem m16_aggregateAmbiguity :
     (allocationB.filter (fun x => x.1 == x.2)).length = 0 := by
   decide
 
+/-- M02: the four starting phases of the periodic word 0011. -/
+def toyPhases : List Nat := [0, 1, 2, 3]
+
+def phaseBit (i : Nat) : Nat := if i % 4 < 2 then 0 else 1
+
+def phasePairs : List (Nat × Nat) :=
+  toyPhases.map (fun i => (phaseBit i, phaseBit (i + 1)))
+
+def phaseTriples : List (Nat × Nat × Nat) :=
+  toyPhases.map (fun i => (phaseBit i, phaseBit (i + 1), phaseBit (i + 2)))
+
+def fairBits : List Nat := [0, 1]
+
+def fairTriples : List (Nat × Nat × Nat) :=
+  fairBits.flatMap (fun x => fairBits.flatMap (fun y =>
+    fairBits.map (fun z => (x, y, z))))
+
+/-- Fixed enumeration: equal single and pair frequencies for the periodic word,
+    but zero occurrences of 000 versus one among eight fair triples. -/
+theorem m02_prefixCounts :
+    toyPhases.map phaseBit = [0, 0, 1, 1] ∧
+    phasePairs = [(0, 0), (0, 1), (1, 1), (1, 0)] ∧
+    phaseTriples.length = 4 ∧
+    (phaseTriples.filter (fun x => x == (0, 0, 0))).length = 0 ∧
+    fairTriples.length = 8 ∧
+    (fairTriples.filter (fun x => x == (0, 0, 0))).length = 1 := by
+  decide
+
+/-- M05: masses on {0,1,2} expressed as counts with denominator two. -/
+def massCountsP : List Nat := [0, 2, 0]
+def massCountsQ : List Nat := [1, 0, 1]
+
+/-- Equal mass and first-moment numerators, with L1 numerator four.
+    Dividing counts by two gives equal means and TV distance one. -/
+theorem m05_equalMeanCounts :
+    massCountsP.sum = 2 ∧
+    massCountsQ.sum = 2 ∧
+    (List.zipWith (fun v m => v * m) [0, 1, 2] massCountsP).sum = 2 ∧
+    (List.zipWith (fun v m => v * m) [0, 1, 2] massCountsQ).sum = 2 ∧
+    (List.zipWith (fun a b => (a - b) + (b - a)) massCountsP massCountsQ).sum = 4 := by
+  decide
+
+/-- M16: deviations of the doubled components from their common scaled mean. -/
+def centeredX (x : Nat × Nat) : Int := Int.ofNat x.1 - 1
+def centeredY (x : Nat × Nat) : Int := Int.ofNat x.2 - 1
+
+/-- Exact centered sums for the two fixed equal-weight allocation lists.
+    With two entries and components scaled by two, the normalization is eight. -/
+theorem m16_centeredSums :
+    allocationA.length = 2 ∧
+    allocationB.length = 2 ∧
+    (allocationA.map (fun x => centeredX x * centeredX x)).sum = 0 ∧
+    (allocationA.map (fun x => centeredY x * centeredY x)).sum = 0 ∧
+    (allocationA.map (fun x => centeredX x * centeredY x)).sum = 0 ∧
+    (allocationB.map (fun x => centeredX x * centeredX x)).sum = 2 ∧
+    (allocationB.map (fun x => centeredY x * centeredY x)).sum = 2 ∧
+    (allocationB.map (fun x => centeredX x * centeredY x)).sum = -2 := by
+  decide
+
 end AbstractExamples
 
 #print axioms bootstrapSmoke
@@ -75,5 +134,8 @@ end AbstractExamples
 #print axioms AbstractExamples.m08_overlapCounts
 #print axioms AbstractExamples.m14_parityLoss
 #print axioms AbstractExamples.m16_aggregateAmbiguity
+#print axioms AbstractExamples.m02_prefixCounts
+#print axioms AbstractExamples.m05_equalMeanCounts
+#print axioms AbstractExamples.m16_centeredSums
 
 end FFBBP

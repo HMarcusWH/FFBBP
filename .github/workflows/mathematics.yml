@@ -60,7 +60,7 @@ jobs:
         run: lake exe cache get Mathlib.Data.Nat.Basic
       - name: Build mathematical library
         run: lake build FFBBP
-      - name: Check five named declarations and their axiom reports
+      - name: Check eight named declarations and their axiom reports
         run: |
           set -euo pipefail
           lake env lean -DwarningAsError=true FFBBP.lean 2>&1 | tee lean-smoke.log
@@ -69,7 +69,10 @@ jobs:
             FFBBP.AbstractExamples.m04_noReducedMap \
             FFBBP.AbstractExamples.m08_overlapCounts \
             FFBBP.AbstractExamples.m14_parityLoss \
-            FFBBP.AbstractExamples.m16_aggregateAmbiguity
+            FFBBP.AbstractExamples.m16_aggregateAmbiguity \
+            FFBBP.AbstractExamples.m02_prefixCounts \
+            FFBBP.AbstractExamples.m05_equalMeanCounts \
+            FFBBP.AbstractExamples.m16_centeredSums
           do
             grep -Fx "'$declaration' does not depend on any axioms" lean-smoke.log
           done
