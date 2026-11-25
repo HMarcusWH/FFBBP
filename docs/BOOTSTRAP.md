@@ -4,8 +4,8 @@ The public repository is a clean documentation and abstract mathematics project.
 
 | Stage | Scope | Initial disposition |
 | --- | --- | --- |
-| G01 | Initialize public documentation and scope | First bootstrap |
-| G02 | Account for eligible research artifacts with a publication-safe register | Pending |
+| G01 | Initialize public documentation and scope | Complete |
+| G02 | Account for eligible research artifacts with a publication-safe register | Complete for the [abstract mathematics inventory](../archive-index/RESEARCH_INVENTORY.md); wider archive not reassessed |
 | G03 | Review publication rights, privacy, and content | Pending |
 | G04 | Import reviewed mathematical exposition and references | Pending |
 | G05 | Import standalone abstract mathematical examples, if eligible | Pending |
