@@ -9,13 +9,14 @@ This repository documents abstract mathematical foundations and limitations of s
 ## Start here
 
 - [Abstract mathematical foundations (M01–M17)](mathematics/FOUNDATIONS.md)
+- [Executable abstract examples](examples/abstract_counterexamples.py)
 - [Research status](RESEARCH_STATUS.md)
 - [Publication scope](governance/PUBLICATION_SCOPE.md)
 - [Bootstrap plan](docs/BOOTSTRAP.md)
 
 ## Verification
 
-The initial repository contains documentation only. No Lean proof has yet been compiled or independently reviewed in this repository. Future proof records will distinguish statement drafting, compilation, axiom inspection and review of the intended mathematical claim.
+The repository contains documentation and fixed abstract mathematical examples. Run `python examples/abstract_counterexamples.py` from the repository root using Python 3. The examples use the standard library and six local tests passed in Python 3.13.5; these checks are not general mathematical proofs. No Lean proof has yet been compiled or independently reviewed in this repository. Future proof records will distinguish statement drafting, compilation, axiom inspection and review of the intended mathematical claim.
 
 Historical research materials are maintained separately. Their existence does not imply permission to redistribute them, current verification, or independent scientific qualification. No operational deployment, full release, or real-world identification capability is authorized by this repository.
 
