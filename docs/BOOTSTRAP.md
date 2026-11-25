@@ -12,9 +12,9 @@ The public repository is a clean documentation and abstract mathematics project.
 | G06 | Establish a Lean 4 project for abstract mathematics | Configured; compiler and resolved dependency lock accepted in G07 |
 | G07 | Establish compilation and proof verification for that project | [Initial hosted build passed](../verification/G07_BOOTSTRAP_RECEIPT.md); smoke theorem axiom-free; generated lockfile committed |
 | G08 | Formalize abstract limitations and counterexamples | [R1: four fixed examples kernel checked](../verification/G08_R1_PROOF_REGISTER.md); all five named declarations axiom-free; scoped batch accepted |
-| G09 | Review statements, assumptions and axiom dependencies | [Scoped internal review complete](../verification/G09_PROOF_ASSURANCE.md); five named axiom reports and artifact verified; revised CI enforcement pending |
-| G10 | Independently reproduce the mathematical checks | Next after revised named-check CI result |
-| G11 | Reconcile public claims with actual evidence | Pending |
+| G09 | Review statements, assumptions and axiom dependencies | [Scoped internal review and revised named-check CI passed](../verification/G09_PROOF_ASSURANCE.md) |
+| G10 | Independently reproduce the mathematical checks | [Repeated hosted verification passed](../verification/G10_REPRODUCIBILITY.md); independent third-party reproduction outstanding |
+| G11 | Reconcile public claims with actual evidence | Next; retain unresolved G10 independence requirement |
 | G12 | Review a versioned mathematical research edition | Pending |
 
 The comprehensive historical archive remains separate. This plan does not authorize unrestricted publication of code, data, or operational components. No completed theorem, scientific qualification, or full release is implied.
