@@ -8,20 +8,20 @@ The private historical archive contains fourteen Markdown documents covering sev
 
 | Candidate | Rounds | Subject | Public import status |
 | --- | --- | --- | --- |
-| A01 | M01–M03 | Observational equivalence, predictive equivalence and gauge ambiguity | Pending review |
-| A02 | M04–M05 | Mathematical sufficiency and approximation limitations | Pending review |
-| A03 | M06 | Structural and numerical uncertainty | Pending review |
-| A04 | M07 | Model misspecification | Pending review |
-| A05 | M08 | Logical consistency of competing explanations | Pending review |
-| A06 | M09 | Generalization limits | Pending review |
-| A07 | M10 | Mathematical foundations synthesis | Pending review |
-| A08 | M11 | Identifiability and uniform recoverability | Pending review |
-| A09 | M12 | Structural nonidentifiability and boundary instability | Pending review |
-| A10 | M13 | Partial identification and identified sets | Pending review |
-| A11 | M14 | Information loss under representation | Pending review |
-| A12 | M15 | Statistical uncertainty and structural ambiguity | Pending review |
-| A13 | M16 | Aggregate and component identifiability | Pending review |
-| A14 | M17 | Consolidated abstract mathematics closeout | Pending review |
+| A01 | M01–M03 | Observational equivalence, predictive equivalence and gauge ambiguity | Original held; abstract public edition eligible |
+| A02 | M04–M05 | Mathematical sufficiency and approximation limitations | Original held; abstract public edition eligible |
+| A03 | M06 | Structural and numerical uncertainty | Original held; abstract public edition eligible |
+| A04 | M07 | Model misspecification | Original held; abstract public edition eligible |
+| A05 | M08 | Logical consistency of competing explanations | Original held; abstract public edition eligible |
+| A06 | M09 | Generalization limits | Original held; abstract public edition eligible |
+| A07 | M10 | Mathematical foundations synthesis | Original held; abstract public edition eligible |
+| A08 | M11 | Identifiability and uniform recoverability | Original held; abstract public edition eligible |
+| A09 | M12 | Structural nonidentifiability and boundary instability | Original held; abstract public edition eligible |
+| A10 | M13 | Partial identification and identified sets | Original held; abstract public edition eligible |
+| A11 | M14 | Information loss under representation | Original held; abstract public edition eligible |
+| A12 | M15 | Statistical uncertainty and structural ambiguity | Original held; abstract public edition eligible |
+| A13 | M16 | Aggregate and component identifiability | Original held; abstract public edition eligible |
+| A14 | M17 | Consolidated abstract mathematics closeout | Original held; abstract public edition eligible |
 
 ## Other archive material
 
@@ -29,4 +29,4 @@ Historical builds, implementation archives, datasets, private verification recor
 
 ## Limits of this check
 
-This register establishes metadata presence and round coverage, not byte equality, content review, ownership, license clearance, proof verification or independent scientific validity. No fresh exhaustive descendant or archive-member inventory was performed. No executable source, proof source, dataset or original historical document has been transferred by this stage. G03 must resolve publication eligibility before any candidate is imported. See [publication scope](../governance/PUBLICATION_SCOPE.md).
+This register establishes metadata presence and round coverage, not byte equality, content review, ownership, license clearance, proof verification or independent scientific validity. No fresh exhaustive descendant or archive-member inventory was performed. No executable source, proof source, dataset or original historical document has been transferred by this stage. G03 completed a scoped content review; see [publication review](../governance/PUBLICATION_REVIEW.md). No original candidate is cleared for verbatim import. Newly authored abstract exposition is eligible within the reviewed scope. See [publication scope](../governance/PUBLICATION_SCOPE.md).
