@@ -8,6 +8,7 @@ This repository documents abstract mathematical foundations and limitations of s
 
 ## Start here
 
+- [Abstract mathematical foundations (M01–M17)](mathematics/FOUNDATIONS.md)
 - [Research status](RESEARCH_STATUS.md)
 - [Publication scope](governance/PUBLICATION_SCOPE.md)
 - [Bootstrap plan](docs/BOOTSTRAP.md)
