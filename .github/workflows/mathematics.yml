@@ -1,0 +1,76 @@
+name: Abstract mathematics checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'lean-toolchain'
+      - 'lakefile.toml'
+      - 'lake-manifest.json'
+      - 'FFBBP.lean'
+      - 'FFBBP/**'
+      - 'examples/abstract_counterexamples.py'
+      - '.github/workflows/mathematics.yml'
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  examples:
+    name: Exact arithmetic examples
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Run fixed examples
+        run: |
+          python3 --version
+          python3 examples/abstract_counterexamples.py
+
+  lean:
+    name: Lean bootstrap
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Install Elan and selected toolchain
+        run: |
+          curl --proto '=https' --tlsv1.2 -fsSL https://raw.githubusercontent.com/leanprover/elan/3cc76985a1becb3c03cd65c1c5007e6f186ae474/elan-init.sh -o /tmp/elan-init.sh
+          sh /tmp/elan-init.sh -y --default-toolchain none --no-modify-path
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+          "$HOME/.elan/bin/lean" --version
+          "$HOME/.elan/bin/lake" --version
+      - name: Resolve initial dependency manifest
+        run: |
+          if [ ! -f lake-manifest.json ]; then
+            lake update
+          fi
+          test -s lake-manifest.json
+      - name: Obtain Mathlib cache for smoke-test imports
+        run: lake exe cache get Mathlib.Data.Nat.Basic
+      - name: Build mathematical library
+        run: lake build FFBBP
+      - name: Check smoke theorem and its axiom report
+        run: |
+          set -o pipefail
+          lake env lean -DwarningAsError=true FFBBP.lean 2>&1 | tee lean-smoke.log
+          grep -F "'FFBBP.bootstrapSmoke' does not depend on any axioms" lean-smoke.log
+      - name: Retain generated manifest and compiler output
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: lean-bootstrap-evidence
+          path: |
+            lake-manifest.json
+            lean-smoke.log
+          if-no-files-found: error
+          retention-days: 30
