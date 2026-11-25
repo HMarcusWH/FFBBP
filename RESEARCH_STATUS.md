@@ -1,12 +1,13 @@
 # Research status
 
-**25 November 2026 — G03 scoped publication review.**
+**25 November 2026 — G04 public mathematical exposition.**
 
 | Area | Status |
 | --- | --- |
 | Public research repository | Initialized; documentation only |
 | Historical M01–M17 supplementary notes | [14 candidate documents inventoried](archive-index/RESEARCH_INVENTORY.md); not imported or independently reviewed here |
 | Publication review | [Scoped content review complete](governance/PUBLICATION_REVIEW.md); originals held, public abstract exposition eligible; rights not independently cleared |
+| Public mathematics | [M01–M17 exposition](mathematics/FOUNDATIONS.md) published; not kernel checked |
 | Lean 4 project | Not initialized |
 | Kernel-checked proofs in this repository | None |
 | Independent theorem-statement and axiom review | Not performed |
