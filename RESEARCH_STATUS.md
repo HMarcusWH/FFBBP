@@ -1,6 +1,6 @@
 # Research status
 
-**25 November 2026 — G08 R1 verified abstract examples.**
+**25 November 2026 — G09 scoped proof assurance.**
 
 | Area | Status |
 | --- | --- |
@@ -15,7 +15,8 @@
 | Automated checks | [G07 evidence receipt](verification/G07_BOOTSTRAP_RECEIPT.md): both hosted jobs passed |
 | Kernel-checked proofs in this repository | One arithmetic smoke theorem and four fixed-example declarations accepted by [CI](https://github.com/HMarcusWH/FFBBP/actions/runs/45699855662); all five individually reported axiom-free |
 | Abstract formalization scope | [G08 R1 proof register](verification/G08_R1_PROOF_REGISTER.md); fixed examples M04, M08, M14, M16 only |
-| Independent theorem-statement and axiom review | Not performed |
+| Internal theorem-statement and named-axiom review | [G09 assurance](verification/G09_PROOF_ASSURANCE.md): five named reports and evidence archive verified; revised named-check CI pending |
+| Independent theorem-statement review and library-wide axiom audit | Not performed |
 | General mathematical and scientific qualification | Not established |
 | Operational or full release | Not authorized |
 
