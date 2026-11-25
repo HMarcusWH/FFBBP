@@ -1,0 +1,15 @@
+# Generated Lean/Lake build outputs
+/.lake/
+/build/
+*.olean
+*.ilean
+*.lean.trace
+
+# Python bytecode and local caches
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Local environment files
+.env
+.env.*
