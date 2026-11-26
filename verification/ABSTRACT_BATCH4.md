@@ -75,3 +75,5 @@ Verified executable/configuration Git blobs:
 The unchanged public propositions were compared against the original candidate statements before R1 verification. Acceptance covers the exact statements only, including the finite-count and rational-grid qualifications recorded above. It is not an independent mathematical review or library-wide axiom audit. The module-system migration warning remains; the runner also reported the Node.js 20 action-runtime migration warning.
 
 Batch 4 R1 establishes accepted Lean evidence for 15/40 groups (11 L+T, 4 L-only, 25 prose), fifteen mathematical declarations and the smoke theorem. It is the accepted predecessor of Batch 5 R1. See [Batch 5 reconciliation](ABSTRACT_BATCH5.md) for the subsequent combined status.
+
+The exact extracted 16-line compiler report is preserved in [BATCH4_R1_AXIOM_REPORT.txt](evidence/BATCH4_R1_AXIOM_REPORT.txt), Git blob `12bb45403c61ff7ac47d6c5da967b4937dedb08d`, matching the locally extracted report bytes. This copy remains inspectable after the hosted ZIP expires.

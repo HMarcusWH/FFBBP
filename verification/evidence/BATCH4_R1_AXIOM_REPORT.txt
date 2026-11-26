@@ -1,0 +1,16 @@
+'FFBBP.bootstrapSmoke' does not depend on any axioms
+'FFBBP.AbstractExamples.m04_noReducedMap' does not depend on any axioms
+'FFBBP.AbstractExamples.m08_overlapCounts' does not depend on any axioms
+'FFBBP.AbstractExamples.m14_parityLoss' does not depend on any axioms
+'FFBBP.AbstractExamples.m16_aggregateAmbiguity' does not depend on any axioms
+'FFBBP.AbstractExamples.m02_prefixCounts' does not depend on any axioms
+'FFBBP.AbstractExamples.m05_equalMeanCounts' does not depend on any axioms
+'FFBBP.AbstractExamples.m16_centeredSums' does not depend on any axioms
+'FFBBP.AbstractExamples.m03_coinParityCounts' does not depend on any axioms
+'FFBBP.AbstractExamples.m04_binaryMarginalCounts' does not depend on any axioms
+'FFBBP.AbstractExamples.m06_mixtureCounts' does not depend on any axioms
+'FFBBP.AbstractExamples.m16_swapCounts' does not depend on any axioms
+'FFBBP.AbstractExamples.m09_observationalAgreement' does not depend on any axioms
+'FFBBP.AbstractExamples.m09_worstCaseError' does not depend on any axioms
+'FFBBP.AbstractExamples.m05_conditioningAmplification' does not depend on any axioms
+'FFBBP.AbstractExamples.m11_bernoulliSeparation' does not depend on any axioms
