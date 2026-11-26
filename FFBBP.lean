@@ -1,4 +1,5 @@
 import Mathlib.Data.Nat.Basic
+import Lean.Elab.Tactic.Omega
 
 namespace FFBBP
 
@@ -185,6 +186,72 @@ theorem m16_swapCounts :
       (fun x => x.1 == x.2)).length = 0 := by
   decide
 
+/-- M09.01: two binary worlds, observed only at input false. -/
+def extrapolationWorldA (_ : Bool) : Bool := false
+def extrapolationWorldB (x : Bool) : Bool := x
+
+/-- The worlds agree at the sole observed input and disagree at the other input. -/
+theorem m09_observationalAgreement :
+    extrapolationWorldA false = extrapolationWorldB false ∧
+    extrapolationWorldA true ≠ extrapolationWorldB true := by
+  decide
+
+/-- M09.02: exact rational risk bound for every positive denominator d
+    and prediction numerator r in [0,d]. The two risks are r/d and
+    (d-r)/d; the disjunction says at least one is at least one half. -/
+theorem m09_worstCaseError (d r : Nat) (hd : 0 < d) (hr : r ≤ d) :
+    0 < d ∧ r + (d - r) = d ∧
+    (d ≤ 2 * r ∨ d ≤ 2 * (d - r)) := by
+  exact ⟨hd, by omega, by omega⟩
+
+/-- Absolute difference of nonnegative integer counts, with no signed underflow. -/
+def batch4CountDistance (a b : Nat) : Nat := (a - b) + (b - a)
+
+/-- L1 numerator for a two-element law with a common positive denominator. -/
+def batch4PairL1 (p q : Nat × Nat) : Nat :=
+  batch4CountDistance p.1 q.1 + batch4CountDistance p.2 q.2
+
+/-- L1 numerator for a three-element law with a common positive denominator. -/
+def batch4TripleL1 (p q : Nat × Nat × Nat) : Nat :=
+  batch4CountDistance p.1 q.1 + batch4PairL1 p.2 q.2
+
+/-- M05.03: all rational epsilon=e/d with 0<e<d. Both full count
+    vectors normalize to d; their L1 numerator is 2e. Restriction to
+    the last two outcomes has positive mass e in each world and the
+    same L1 numerator. The full TV is e/d and conditional TV is e/e.
+    No integer division is used to represent probability normalization. -/
+theorem m05_conditioningAmplification (d e : Nat) (he : 0 < e) (hed : e < d) :
+    let p : Nat × Nat × Nat := (d - e, e, 0)
+    let q : Nat × Nat × Nat := (d - e, 0, e)
+    0 < e ∧ e < d ∧
+    p.1 + p.2.1 + p.2.2 = d ∧
+    q.1 + q.2.1 + q.2.2 = d ∧
+    batch4TripleL1 p q = 2 * e ∧
+    p.2.1 + p.2.2 = e ∧ q.2.1 + q.2.2 = e ∧
+    p.2 = (e, 0) ∧ q.2 = (0, e) ∧
+    batch4PairL1 p.2 q.2 = 2 * e := by
+  dsimp only [batch4TripleL1, batch4PairL1, batch4CountDistance]
+  exact ⟨he, hed, by omega, by omega, by omega, by omega, by omega,
+    rfl, rfl, by omega⟩
+
+/-- M11.01: all rational separations t/(2m) in (0,1/4].
+    The two binary laws have common denominator 2m. The first
+    coordinate distinguishes the labels; the L1 numerator 4t gives
+    TV 2*t/(2*m). The finite count representation does not assert
+    the later finite-sample minimax result. -/
+theorem m11_bernoulliSeparation (m t : Nat) (ht : 0 < t) (hb : 2 * t ≤ m) :
+    let p : Nat × Nat := (m + t, m - t)
+    let q : Nat × Nat := (m - t, m + t)
+    0 < 2 * m ∧
+    p.1 + p.2 = 2 * m ∧ q.1 + q.2 = 2 * m ∧
+    q.1 < m ∧ m < p.1 ∧ p ≠ q ∧
+    batch4PairL1 p q = 4 * t := by
+  dsimp only [batch4PairL1, batch4CountDistance]
+  refine ⟨by omega, by omega, by omega, by omega, by omega, ?_, by omega⟩
+  intro h
+  have h' : m + t = m - t := congrArg Prod.fst h
+  omega
+
 end AbstractExamples
 
 #print axioms bootstrapSmoke
@@ -199,5 +266,10 @@ end AbstractExamples
 #print axioms AbstractExamples.m04_binaryMarginalCounts
 #print axioms AbstractExamples.m06_mixtureCounts
 #print axioms AbstractExamples.m16_swapCounts
+
+#print axioms AbstractExamples.m09_observationalAgreement
+#print axioms AbstractExamples.m09_worstCaseError
+#print axioms AbstractExamples.m05_conditioningAmplification
+#print axioms AbstractExamples.m11_bernoulliSeparation
 
 end FFBBP

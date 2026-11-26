@@ -70,5 +70,51 @@ class AbstractCounterexamples(unittest.TestCase):
         self.assertTrue(all(u != v for u, v in b))
 
 
+    def test_m09_observational_agreement(self):
+        world_a = {False: False, True: False}
+        world_b = {False: False, True: True}
+        self.assertEqual(world_a[False], world_b[False])
+        self.assertNotEqual(world_a[True], world_b[True])
+
+    def test_m09_worst_case_error(self):
+        for d in range(1, 17):
+            for r in range(d + 1):
+                with self.subTest(d=d, r=r):
+                    p = F(r, d)
+                    self.assertEqual(p + (1 - p), 1)
+                    self.assertGreaterEqual(max(p, 1 - p), F(1, 2))
+
+    def test_m05_conditioning_amplification(self):
+        for d in range(2, 17):
+            for e in range(1, d):
+                with self.subTest(d=d, e=e):
+                    eps = F(e, d)
+                    p = (1 - eps, eps, F(0))
+                    q = (1 - eps, F(0), eps)
+                    self.assertEqual(sum(p), 1)
+                    self.assertEqual(sum(q), 1)
+                    self.assertEqual(sum(abs(a - b) for a, b in zip(p, q)) / 2, eps)
+                    p_event, q_event = sum(p[1:]), sum(q[1:])
+                    self.assertEqual((p_event, q_event), (eps, eps))
+                    p_cond = tuple(a / p_event for a in p[1:])
+                    q_cond = tuple(b / q_event for b in q[1:])
+                    self.assertEqual((p_cond, q_cond), ((1, 0), (0, 1)))
+                    self.assertEqual(sum(abs(a - b) for a, b in zip(p_cond, q_cond)) / 2, 1)
+
+    def test_m11_bernoulli_separation(self):
+        for m in range(2, 33):
+            for t in range(1, m // 2 + 1):
+                with self.subTest(m=m, t=t):
+                    delta = F(t, 2 * m)
+                    p = (F(1, 2) + delta, F(1, 2) - delta)
+                    q = (F(1, 2) - delta, F(1, 2) + delta)
+                    self.assertEqual(sum(p), 1)
+                    self.assertEqual(sum(q), 1)
+                    self.assertLess(q[0], F(1, 2))
+                    self.assertGreater(p[0], F(1, 2))
+                    self.assertNotEqual(p, q)
+                    self.assertEqual(sum(abs(a - b) for a, b in zip(p, q)) / 2, 2 * delta)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
