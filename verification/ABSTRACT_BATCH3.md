@@ -27,3 +27,20 @@ These are fixed counterexamples and finite arithmetic facts; no general probabil
 At this observation the seven previously accepted fixed-example declarations and one arithmetic smoke theorem remain the verified inventory. The four new declarations are candidates only. No new acceptance is granted before inspecting the completed run and individual reports. The existing forty-group inventory retains its accepted-evidence counts until that verification.
 
 Independent reproduction, independent statement review, library-wide axiom audit and the licensing decision remain outstanding. No general project qualification or new edition release is granted.
+
+## Observed acceptance — 2026-11-26
+
+Run 45723822800 completed both jobs successfully. Lean job 139588484683 reported Lean 4.35.0, 160 successful build jobs and successful automated checking of all twelve named declarations. Python job 139588484965 passed six tests under Python 3.14.4. The module-system migration warning persists. No new Python tests were introduced.
+
+Each of the twelve compiler reports explicitly states that the named declaration does not depend on any axioms. The four additional declarations are accepted within the exact finite-arithmetic and list statements specified above.
+
+Downloaded Actions artifact 15073926106 was independently rehashed locally (not an independent scientific review): 1144 bytes, SHA-256 `03266659db1eca798af41fef2314b2b82e72d49d97b6a90a8802a6cf4c6f3772`, matching the provider digest. ZIP CRC verification passed for both members.
+
+| Member | Bytes | SHA-256 |
+| --- | ---: | --- |
+| lake-manifest.json | 3123 | 4cf42be720e442c8476af0d94dccd7c9228e4abb569b64cd51d5edbd2dc2c79a |
+| lean-smoke.log | 864 | ea09344489f13e31ca69164da242e655b7a744b1aca42c73d22bae17db8633b4 |
+
+The manifest contains nine package revisions and Git blob d0d5afd6f802f8159255011089485e0806a64fc1, matching the repository lockfile. The extracted report includes all twelve expected axiom-free declarations. Six source/configuration files match their tested Git blob identities.
+
+Current accepted inventory: eleven fixed-example declarations and one smoke theorem. Seven grouped statements have Lean and corresponding Python evidence; four have Lean evidence without dedicated Python assertions; twenty-nine remain prose or logical discussion. No general probability-measure theorem, model-specific obligation, independent mathematical review or unrestricted release is established. The pinned candidate edition remains unchanged.
