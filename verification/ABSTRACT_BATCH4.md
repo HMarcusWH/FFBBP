@@ -32,3 +32,19 @@ If the four candidates pass and are reconciled, 15/40 groups will have correspon
 The complete Python source was reconstructed from the GitHub readback, its Git blob SHA independently recomputed and matched, and all ten unittest methods passed under local Python 3.13.5. The previous six methods are retained. The parameterized Fraction checks cover finite grids, not a formal proof. The local environment has no Lean/Lake executable, so no local kernel check is claimed.
 
 [Hosted workflow run 45818203518](https://github.com/HMarcusWH/FFBBP/actions/runs/45818203518) was observed queued for the exact submission commit; Lean job 139903302526 and Python job 139903301937 were both queued. The sixteen-report axiom-free gate is unchanged in strength. Static screening found sixteen named theorem declarations and matching print-axioms commands, all included in the workflow, with no incomplete proof placeholder or native_decide token. This is not proof acceptance. The statement inventory remains at its last accepted Lean baseline pending compiler/evidence review.
+
+## Observed hosted result — 2026-11-26
+
+[Run 45818203518](https://github.com/HMarcusWH/FFBBP/actions/runs/45818203518) is completed with failure. The Python job passed all ten test methods under Python 3.14.4. The Lean library build succeeded (160 jobs), and the explicit compiler invocation printed all sixteen axiom reports. Thirteen named declarations report no axioms, including all twelve previously accepted declarations and m09_observationalAgreement. The other three reports are:
+
+| Candidate | Exact reported axioms |
+| --- | --- |
+| m09_worstCaseError | propext, Quot.sound |
+| m05_conditioningAmplification | propext, Quot.sound |
+| m11_bernoulliSeparation | propext, Quot.sound |
+
+These are standard foundational Lean axioms, not sorryAx or project-specific assumptions. Nonetheless, the committed zero-axiom policy rejected the reports, the required verification step failed with exit code 1 and artifact upload was skipped. The module-system migration warning persists. No relaxed policy, batch acceptance or inventory promotion is authorized. All four candidates remain unaccepted as a batch. The next step is a proof-term repair under the current zero-axiom policy or an explicitly approved and separately versioned foundational-axiom policy. Batch 5 is separately staged in [draft PR #1](https://github.com/HMarcusWH/FFBBP/pull/1) and must not merge until the Batch 4 dependency is resolved.
+
+## R1 constructive proof repair — 2026-11-26
+
+The earlier completed run remains a failed strict-gate result. This candidate preserves the exact four theorem statements and the Python tests. The three parameterized proofs replace arithmetic automation with constructive natural-number induction, explicit subtraction cancellation, order inequalities, and equality transport. Existing accepted declarations and all sixteen required exact axiom-free reports remain unchanged. The workflow now records the complete audit failure set and retains build/compiler logs even when the audit fails. No foundational axiom allowlist has been introduced. Acceptance requires a new successful native compiler and strict report check; no acceptance is granted by source inspection.

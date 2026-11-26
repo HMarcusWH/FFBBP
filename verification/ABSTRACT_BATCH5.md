@@ -23,3 +23,9 @@ All sixteen prior named theorem candidates and their audit commands are preserve
 ## Disposition
 
 SUBMITTED AS DEVELOPMENT CANDIDATES. Accepted Lean evidence remains 11/40 at this observation. If both batches pass, 20/40 groups would have corresponding Lean evidence, with partial scope explicitly recorded rather than implying twenty fully formalized probability-law results. Independent mathematical review, independent reproduction, the library-wide audit and owner licensing decision remain open.
+
+## Observed original Batch 5 result and R1 repair
+
+[Run 45818934133](https://github.com/HMarcusWH/FFBBP/actions/runs/45818934133) compiled all 21 declarations (160 jobs); all 15 hosted Python tests passed. Fourteen declarations reported no axioms. The three inherited Batch 4 candidates and m05_horizonGapCounts, m13_parityIdentifiedGrid, m13_endpointIdentifiedSet reported propext and Quot.sound; m07_balancedLikelihoodCounts reported propext. The zero-axiom gate failed and artifact upload was skipped. No acceptance was granted.
+
+R1 merges the repaired Batch 4 main baseline 2a7e8445f6bb9ab535f5795c9aa25f4009a29d81 into this draft branch and replaces all seven affected proof bodies with explicit constructive arithmetic proofs, including local multiplication/power induction rather than relying on the previous upstream multiplication-power lemma. All 21 public named theorem statements and all 15 Python tests remain unchanged. The strict CI policy is preserved and failed compiler evidence is retained. A successful fresh compiler and complete zero-axiom report set are still required, as is acceptance reconciliation of the main Batch 4 baseline. No merge or acceptance is granted at submission.
