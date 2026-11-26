@@ -1,32 +1,32 @@
 # Research status
 
-**26 November 2026 — Batch 5 R1 constructive repair staged; Batch 3 remains the accepted baseline.**
+**26 November 2026 — Batches 4 and 5 R1 accepted and merged; exact scoped verification reconciled.**
 
 | Area | Status |
 | --- | --- |
 | Public research repository | Documentation and standalone abstract examples |
 | Historical M01–M17 supplementary notes | [14 candidate documents inventoried](archive-index/RESEARCH_INVENTORY.md); not imported or independently reviewed here |
 | Publication review | [Scoped content review complete](governance/PUBLICATION_REVIEW.md); originals held, public abstract exposition eligible; rights not independently cleared |
-| Public mathematics | [M01–M17 exposition](mathematics/FOUNDATIONS.md) published; eleven fixed-example declarations kernel checked across eight sections; general results remain outside this check |
-| Executable examples | [Six fixed counterexamples](examples/abstract_counterexamples.py), six local tests passed under Python 3.13.5; Git blob 58d2fb52adae863b5cdcb16f7428f31493670d4a matched tested file; six hosted CI tests also passed under Python 3.14.4; independent review not performed |
+| Public mathematics | [M01–M17 exposition](mathematics/FOUNDATIONS.md) published; twenty accepted abstract mathematical declarations across thirteen sections; precise fixed-example and finite-count scope, general results outside this check |
+| Executable examples | [Fifteen test methods](examples/abstract_counterexamples.py) passed hosted CI under Python 3.14.4; Git blob cffe22b3175ba1c5636bd9feb90f86106cf81e70 matches tested merge tree; independent review not performed |
 | Lean 4 project | [Toolchain v4.35.0](lean-toolchain) and [Mathlib v4.35.0](lakefile.toml) configured; four source files matched local Git blob hashes and five static checks passed |
 | Resolved Lake dependency manifest | [CI-generated manifest](lake-manifest.json) committed; nine exact package revisions; [locked-checkout rerun](https://github.com/HMarcusWH/FFBBP/actions/runs/45699559058) passed both jobs |
 | Lean bootstrap smoke test | [Hosted CI passed](https://github.com/HMarcusWH/FFBBP/actions/runs/45699117744); one arithmetic smoke theorem, no axiom dependencies |
 | Automated checks | [G07 evidence receipt](verification/G07_BOOTSTRAP_RECEIPT.md): both hosted jobs passed |
-| Kernel-checked proofs in this repository | One arithmetic smoke theorem and eleven fixed-example declarations accepted by [Batch 3 CI](https://github.com/HMarcusWH/FFBBP/actions/runs/45723822800); all twelve individually reported axiom-free |
+| Kernel-checked proofs in this repository | One arithmetic smoke theorem and twenty scoped mathematical declarations; [Batch 5 R1 CI](https://github.com/HMarcusWH/FFBBP/actions/runs/45841285680) passed all twenty-one named zero-axiom checks |
 | Additional fixed-example proofs | [Batch 2 register](verification/ABSTRACT_BATCH2.md): M02.03, M05.01 and M16.02 passed compilation and automated named axiom checks; downloaded artifact and lockfile verified |
 | Batch 3 fixed-example proofs | [Batch 3 register](verification/ABSTRACT_BATCH3.md): M03.02, M04.02, M06.02 and M16.03 passed compilation and twelve-declaration axiom verification; downloaded evidence and lockfile verified |
-| Batch 4 candidates | [Batch 4 register](verification/ABSTRACT_BATCH4.md): [hosted run](https://github.com/HMarcusWH/FFBBP/actions/runs/45818203518) passed 10 Python tests and compiled all 16 Lean declarations. 13/16 axiom-free; three depend on propext and Quot.sound. Strict gate failed; artifact upload skipped. No batch acceptance or inventory promotion. [Batch 5 draft PR](https://github.com/HMarcusWH/FFBBP/pull/1) is blocked on resolution. |
-| Batch 4 R1 repair | Replaced three arithmetic-automation proof terms while preserving their exact propositions and the strict zero-axiom gate. Updated workflow retains failed compiler evidence. Reverification pending. |
-| Batch 5 R1 repair | [Batch 5 register](verification/ABSTRACT_BATCH5.md): original 21 declarations compiled; 15 Python methods passed; 14/21 were axiom-free, seven failed the strict gate. All seven affected proof bodies repaired without changing their statements. Draft PR; fresh CI and Batch 4 acceptance pending. |
-| Abstract formalization scope | [G08 R1 proof register](verification/G08_R1_PROOF_REGISTER.md); initial fixed examples M04, M08, M14, M16; Batch 2 adds M02, M05 and an additional M16 example; Batch 3 adds examples in M03, M04, M06 and M16 |
-| Claim reconciliation | [G11 register](verification/G11_CLAIM_RECONCILIATION.md): historical G11 coverage retained; current coverage is eight sections with Lean-checked fixed examples, six of which also have Python checks; nine prose/synthesis only |
-| Statement-level inventory | [Abstract statement inventory](verification/ABSTRACT_STATEMENT_INVENTORY.md): 40 editorially grouped public claims/examples; 7 with Lean and Python evidence, 4 with Lean evidence only, 0 with Python evidence only, 29 prose/logical discussion; exact grouped-claim scope retained |
-| Internal theorem-statement and named-axiom review | [G09 assurance](verification/G09_PROOF_ASSURANCE.md): initial five named reports and evidence archive verified; Batch 3 automated verification covers twelve named declarations |
-| Reproducibility | [G10 assessment](verification/G10_REPRODUCIBILITY.md): two hosted builds passed, five source/configuration blobs matched across both runs and main, both evidence members byte-identical |
+| Batch 4 candidates | [Batch 4 R1 acceptance](verification/ABSTRACT_BATCH4.md): original gate failed (13/16 axiom-free); repaired statements compiled, 16/16 axiom-free, 10 Python methods passed, downloaded artifact and lockfile verified |
+| Batch 4 R1 repair | [R1 native run](https://github.com/HMarcusWH/FFBBP/actions/runs/45841263893) passed; three proof bodies repaired without statement changes or policy relaxation |
+| Batch 5 R1 repair | [Batch 5 R1 acceptance](verification/ABSTRACT_BATCH5.md): original gate failed (14/21 axiom-free); repaired 21/21 passed, 15 Python methods passed, evidence verified; [PR #1](https://github.com/HMarcusWH/FFBBP/pull/1) merged at f95e12cec70bed68f15abeb900d66f4feac34715 |
+| Abstract formalization scope | [G08 R1 proof register](verification/G08_R1_PROOF_REGISTER.md) and Batches 2–5: fixed examples plus parameterized finite-count and rational-grid results; not full real-valued or measure-theoretic formalization |
+| Claim reconciliation | [G11 register](verification/G11_CLAIM_RECONCILIATION.md): historical G11 baseline retained; current coverage is thirteen sections with Lean evidence, eleven also with Python evidence; four prose/synthesis only |
+| Statement-level inventory | [Abstract statement inventory](verification/ABSTRACT_STATEMENT_INVENTORY.md): 40 editorial groups; 16 L+T, 4 L-only, 0 T-only, 20 prose/logical discussion; 20/40 corresponding Lean evidence; partial scopes retained |
+| Internal theorem-statement and named-axiom review | [G09 assurance](verification/G09_PROOF_ASSURANCE.md) historical review; all 21 named reports verified in Batch 5 R1; seven repaired propositions unchanged; no library-wide audit |
+| Reproducibility | [G10 assessment](verification/G10_REPRODUCIBILITY.md) historical baseline; Batch 4/5 R1 evidence archives independently rehashed, CRCs checked, lockfile matched and complete named reports inspected; PR checkout, branch head and actual merge tree identical |
 | Independent third-party reproduction, theorem-statement review and library-wide axiom audit | Not performed |
 | Versioned abstract mathematics edition | [0.1.0-rc.1 candidate](editions/ABSTRACT_MATH_0.1.0_RC1.md); 19-file pinned baseline, six executable/build inputs match successful CI; scoped review complete, no GitHub Release or tag created |
 | General mathematical and scientific qualification | Not established |
 | Operational or full release | Not authorized |
 
-The supplementary series explains established mathematical limitations and does not resolve the original numbered mathematical obligations. Historical regression results and archival checks are not proof or independent empirical qualification. No new acceptance is granted by this bootstrap.
+The supplementary series explains established mathematical limitations and does not resolve the original numbered mathematical obligations. Historical regression results and archival checks are not proof or independent empirical qualification. This acceptance is limited to the exact named public mathematical declarations and corresponding executed examples. It does not grant acceptance of original project-specific obligations, independent scientific qualification or deployment.

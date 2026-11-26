@@ -29,3 +29,34 @@ SUBMITTED AS DEVELOPMENT CANDIDATES. Accepted Lean evidence remains 11/40 at thi
 [Run 45818934133](https://github.com/HMarcusWH/FFBBP/actions/runs/45818934133) compiled all 21 declarations (160 jobs); all 15 hosted Python tests passed. Fourteen declarations reported no axioms. The three inherited Batch 4 candidates and m05_horizonGapCounts, m13_parityIdentifiedGrid, m13_endpointIdentifiedSet reported propext and Quot.sound; m07_balancedLikelihoodCounts reported propext. The zero-axiom gate failed and artifact upload was skipped. No acceptance was granted.
 
 R1 merges the repaired Batch 4 main baseline 2a7e8445f6bb9ab535f5795c9aa25f4009a29d81 into this draft branch and replaces all seven affected proof bodies with explicit constructive arithmetic proofs, including local multiplication/power induction rather than relying on the previous upstream multiplication-power lemma. All 21 public named theorem statements and all 15 Python tests remain unchanged. The strict CI policy is preserved and failed compiler evidence is retained. A successful fresh compiler and complete zero-axiom report set are still required, as is acceptance reconciliation of the main Batch 4 baseline. No merge or acceptance is granted at submission.
+
+## Observed R1 acceptance and reconciliation — 2026-11-26
+
+**ACCEPTED — exact scoped propositions; zero-axiom gate passed.** [R1 source commit](https://github.com/HMarcusWH/FFBBP/commit/fb0a4489a01d9def38e831ef798763f8279d945c); [successful CI run 45841285680](https://github.com/HMarcusWH/FFBBP/actions/runs/45841285680). Lean job 139983311492: Lean 4.35.0 (eb6cafb7290e8bd5f2937522d8d804f58f02bafc), 160 successful build jobs, all 21 named reports explicitly axiom-free. Python job 139983311033: 15/15 methods passed under Python 3.14.4. The strict policy is unchanged. Historical initial failures above are preserved and superseded for current acceptance by R1.
+
+Verified executable/configuration Git blobs:
+
+| Path | Blob SHA |
+| --- | --- |
+| FFBBP.lean | 7bb4c3704283f645c794f5da4ae078cb52f672db |
+| .github/workflows/mathematics.yml | 3df0828a57d8fa437e2cee1681ef6899b5902046 |
+| examples/abstract_counterexamples.py | cffe22b3175ba1c5636bd9feb90f86106cf81e70 |
+| lake-manifest.json | d0d5afd6f802f8159255011089485e0806a64fc1 |
+| lean-toolchain | a6aff065db2882c535684f8c5bcd4f16e9a23915 |
+| lakefile.toml | 327357be180e0cfa63b36fe6e78ad8b1f45f7eb5 |
+
+[Downloaded artifact 15129055440](https://github.com/HMarcusWH/FFBBP/actions/runs/45841285680/artifacts/15129055440): 1971 bytes; independently recomputed SHA-256 `05bab87da3613e9c98790fdccb83be78376890587ae27b98c85046cebec8460c` matches the provider digest. ZIP CRC verification passed and the three-member set was exact. The manifest has nine package revisions and its independently recomputed Git blob SHA matches the pinned lockfile. The extracted compiler log contains exactly 21 distinct expected axiom-free reports, and the build log records successful completion of 160 jobs.
+
+| Member | Bytes | SHA-256 |
+| --- | ---: | --- |
+| lake-manifest.json | 3123 | 4cf42be720e442c8476af0d94dccd7c9228e4abb569b64cd51d5edbd2dc2c79a |
+| lean-smoke.log | 1587 | aa5bb04f64b40f86bcbd00e3d817483ea7ed9b0bb5b2db801d6558fff4857d62 |
+| lean-build.log | 2344 | 75fb91586fbf74b01e615818054e841ce7599694fc76a5a20d644d53d3d18489 |
+
+The unchanged public propositions were compared against the original candidate statements before R1 verification. Acceptance covers the exact statements only, including the finite-count and rational-grid qualifications recorded above. It is not an independent mathematical review or library-wide axiom audit. The module-system migration warning remains; the runner also reported the Node.js 20 action-runtime migration warning.
+
+## Merged baseline
+
+[PR #1](https://github.com/HMarcusWH/FFBBP/pull/1) merged successfully at [f95e12cec70bed68f15abeb900d66f4feac34715](https://github.com/HMarcusWH/FFBBP/commit/f95e12cec70bed68f15abeb900d66f4feac34715). The actual PR checkout commit 4a2cbc58b699517fc353f05e81cc3abd41aaadc4, the verified R1 branch head fb0a4489a01d9def38e831ef798763f8279d945c, and the actual main merge commit have the identical Git tree `6eb11b061ef55324cc51088d4fc1fbfe81a4c602`. The R1 main Batch 4 commit is an ancestor. No mathematical input changed at merge. The 19-file RC1 baseline and edition document remain unchanged.
+
+Combined accepted inventory: twenty mathematical declarations and one arithmetic smoke theorem, 16 groups L+T, 4 L-only and 20 prose-only, 15 distinct Python methods, 13/17 sections with Lean evidence (11 with corresponding Python evidence). The accepted coverage is 20/40 editorial groups, not 50 percent of all mathematical formulas or project qualification. The [statement inventory](ABSTRACT_STATEMENT_INVENTORY.md), public reading guide and research status are reconciled. No project-specific obligations, independent scientific acceptance, or release authorization are granted.

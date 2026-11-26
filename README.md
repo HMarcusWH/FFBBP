@@ -4,7 +4,7 @@ Public mathematical research and formalization record.
 
 ## Purpose
 
-This repository documents abstract mathematical foundations and limitations of statistical inference, with an intended Lean 4 formalization of selected propositions and counterexamples. It is a research record, not an operational system or a claim of universal inference capability.
+This repository documents abstract mathematical foundations and limitations of statistical inference, with Lean 4 formalization of selected propositions and counterexamples. It is a research record, not an operational system or a claim of universal inference capability.
 
 ## Start here
 
@@ -12,7 +12,7 @@ This repository documents abstract mathematical foundations and limitations of s
 - [Abstract mathematical foundations (M01–M17)](mathematics/FOUNDATIONS.md)
 - [Executable abstract examples](examples/abstract_counterexamples.py)
 - [Lean project configuration](lakefile.toml)
-- [Lean smoke test and fixed mathematical examples](FFBBP.lean)
+- [Lean smoke test and abstract mathematical declarations](FFBBP.lean)
 - [G08 R1 proof register](verification/G08_R1_PROOF_REGISTER.md)
 - [G09 statement and axiom assurance](verification/G09_PROOF_ASSURANCE.md)
 - [G10 reproducibility assessment](verification/G10_REPRODUCIBILITY.md)
@@ -22,13 +22,17 @@ This repository documents abstract mathematical foundations and limitations of s
 - [Statement-level mathematical inventory](verification/ABSTRACT_STATEMENT_INVENTORY.md)
 - [Batch 2 verified fixed examples](verification/ABSTRACT_BATCH2.md)
 - [Batch 3 verified fixed examples](verification/ABSTRACT_BATCH3.md)
+- [Batch 4 R1 verified finite-count results](verification/ABSTRACT_BATCH4.md)
+- [Batch 5 R1 verified finite probability and partial identification](verification/ABSTRACT_BATCH5.md)
 - [Research status](RESEARCH_STATUS.md)
 - [Publication scope](governance/PUBLICATION_SCOPE.md)
 - [Bootstrap plan](docs/BOOTSTRAP.md)
 
 ## Verification
 
-The repository contains documentation, fixed abstract mathematical examples and an initial Lean 4 project configuration. Run `python examples/abstract_counterexamples.py` from the repository root using Python 3. The examples use the standard library and six local tests passed in Python 3.13.5; these checks are not general mathematical proofs. The Lean and Mathlib versions are both set to v4.35.0. The [upstream Mathlib toolchain](https://github.com/leanprover-community/mathlib4/blob/v4.35.0/lean-toolchain) was inspected to confirm compatibility. The local configuration passed static checks. The [initial GitHub Actions run](https://github.com/HMarcusWH/FFBBP/actions/runs/45699117744) completed all six Python tests under Python 3.14.4 and installed the Lean toolchain. Both initial hosted jobs passed. Lean checked the arithmetic smoke theorem without axiom dependencies. The CI-generated manifest was committed with nine resolved revisions; see the G07 receipt for its exact scope. A subsequent locked-checkout run passed. G08 R1 also passed hosted Lean verification for four fixed abstract examples. The five named declarations (including the smoke theorem) report no axiom dependencies. General probability-measure results and independent review are not established by these checks. G09 reviewed the exact fixed-example statements and verified the retained evidence artifact. The revised CI workflow requires all five named axiom-free reports and its first run passed. G10 compared the two hosted executions and verified matching dependency-manifest and compiler-report bytes. G11 maps evidence to all seventeen exposition sections: four have Lean-checked fixed examples and Python checks, two have Python checks only, and eleven contain prose or synthesis only. This is not a measure of overall mathematical completion. G12 records the scoped candidate edition 0.1.0-rc.1 against an immutable 19-file source baseline. It is not a tagged software release or an independent qualification. Post-edition Batches 2 and 3 passed compilation for seven additional fixed-example declarations; current main has eleven verified mathematical example declarations and the arithmetic smoke theorem, all twelve with axiom-free reports. The forty-group statement inventory now records seven groups with Lean and Python evidence, four with Lean evidence only, and twenty-nine with prose/logical discussion only. The pinned candidate edition is unchanged. Independent third-party reproduction, independent mathematical review and library-wide axiom auditing remain outside the accepted scope.
+The current main branch contains twenty accepted abstract mathematical declarations and one arithmetic smoke theorem. All twenty-one have exact axiom-free reports in [Batch 5 R1 CI](https://github.com/HMarcusWH/FFBBP/actions/runs/45841285680); fifteen Python test methods passed under Python 3.14.4. Run `python examples/abstract_counterexamples.py` for the standard-library exact-arithmetic checks. The Lean and Mathlib versions are v4.35.0 and the resolved Lake manifest pins nine package revisions. [Batch 4 R1](verification/ABSTRACT_BATCH4.md) and [Batch 5 R1](verification/ABSTRACT_BATCH5.md) preserve the initial failed strict-gate runs, constructive repairs, successful native verification, independently rehashed evidence ZIPs and the exact merged source identity. The zero-axiom gate was not relaxed.
+
+The [forty-group statement inventory](verification/ABSTRACT_STATEMENT_INVENTORY.md) records sixteen groups with Lean and Python evidence, four with Lean evidence only, and twenty prose/logical groups. Thirteen of seventeen sections have Lean evidence. Coverage is scoped to exact fixed examples and parameterized finite/rational-count statements; general probability-measure and asymptotic results are not thereby formalized. The initial bootstrap and historical G07–G12 records remain applicable to their respective pinned baselines. The 0.1.0-rc.1 candidate edition remains unchanged; it is not a tagged software release. Independent third-party reproduction, independent mathematical review and library-wide axiom auditing remain outside the accepted scope.
 
 Historical research materials are maintained separately. Their existence does not imply permission to redistribute them, current verification, or independent scientific qualification. No operational deployment, full release, or real-world identification capability is authorized by this repository.
 
