@@ -59,11 +59,14 @@ jobs:
       - name: Obtain Mathlib cache for smoke-test imports
         run: lake exe cache get Mathlib.Data.Nat.Basic
       - name: Build mathematical library
-        run: lake build FFBBP
+        run: |
+          set -o pipefail
+          lake build FFBBP 2>&1 | tee lean-build.log
       - name: Check sixteen named declarations and their axiom reports
         run: |
           set -euo pipefail
           lake env lean -DwarningAsError=true FFBBP.lean 2>&1 | tee lean-smoke.log
+          audit_failed=0
           for declaration in \
             FFBBP.bootstrapSmoke \
             FFBBP.AbstractExamples.m04_noReducedMap \
@@ -82,14 +85,20 @@ jobs:
             FFBBP.AbstractExamples.m05_conditioningAmplification \
             FFBBP.AbstractExamples.m11_bernoulliSeparation
           do
-            grep -Fx "'$declaration' does not depend on any axioms" lean-smoke.log
+            if ! grep -Fx "'$declaration' does not depend on any axioms" lean-smoke.log; then
+              echo "::error::Missing exact axiom-free report for $declaration"
+              audit_failed=1
+            fi
           done
+          exit "$audit_failed"
       - name: Retain generated manifest and compiler output
+        if: ${{ always() }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: lean-bootstrap-evidence
           path: |
             lake-manifest.json
             lean-smoke.log
+            lean-build.log
           if-no-files-found: error
           retention-days: 30

@@ -1,5 +1,4 @@
 import Mathlib.Data.Nat.Basic
-import Lean.Elab.Tactic.Omega
 
 namespace FFBBP
 
@@ -196,13 +195,63 @@ theorem m09_observationalAgreement :
     extrapolationWorldA true ≠ extrapolationWorldB true := by
   decide
 
+/-- Constructive arithmetic proof support for the strict axiom audit.
+    Use induction and equality transport rather than arithmetic automation. -/
+private theorem repairAddCongr {a b c d : Nat} (h : a = b) (g : c = d) :
+    a + c = b + d :=
+  (congrArg (fun x : Nat => x + c) h).trans (congrArg (fun x : Nat => b + x) g)
+
+private theorem repairSubCancel (a b : Nat) : (a + b) - b = a := by
+  induction b with
+  | zero => rfl
+  | succ b ih =>
+    exact (Nat.succ_sub_succ (a + b) b).trans ih
+
+private theorem repairSubSelfAdd (a b : Nat) : a - (a + b) = 0 := by
+  induction b with
+  | zero => exact Nat.sub_self a
+  | succ b ih => exact congrArg Nat.pred ih
+
+private theorem repairSubZeroOfLe {a b : Nat} (h : a ≤ b) : a - b = 0 := by
+  obtain ⟨k, hk⟩ := Nat.le.dest h
+  exact Eq.mp (congrArg (fun x : Nat => a - x = 0) hk) (repairSubSelfAdd a k)
+
+private theorem repairAddSubOfLe {a b : Nat} (h : a ≤ b) : a + (b - a) = b := by
+  obtain ⟨k, hk⟩ := Nat.le.dest h
+  calc
+    a + (b - a) = a + ((k + a) - a) :=
+      congrArg (fun x : Nat => a + (x - a)) (hk.symm.trans (Nat.add_comm a k))
+    _ = a + k := congrArg (fun x : Nat => a + x) (repairSubCancel k a)
+    _ = b := hk
+
+private theorem repairFourMul (n : Nat) : 4 * n = (n + n) + (n + n) := by
+  calc
+    4 * n = 3 * n + n := Nat.succ_mul 3 n
+    _ = (2 * n + n) + n := congrArg (fun x : Nat => x + n) (Nat.succ_mul 2 n)
+    _ = ((n + n) + n) + n :=
+      congrArg (fun x : Nat => (x + n) + n) (Nat.two_mul n)
+    _ = (n + n) + (n + n) := Nat.add_assoc (n + n) n n
+
 /-- M09.02: exact rational risk bound for every positive denominator d
     and prediction numerator r in [0,d]. The two risks are r/d and
     (d-r)/d; the disjunction says at least one is at least one half. -/
 theorem m09_worstCaseError (d r : Nat) (hd : 0 < d) (hr : r ≤ d) :
     0 < d ∧ r + (d - r) = d ∧
     (d ≤ 2 * r ∨ d ≤ 2 * (d - r)) := by
-  exact ⟨hd, by omega, by omega⟩
+  have hs : r + (d - r) = d := repairAddSubOfLe hr
+  refine ⟨hd, hs, ?_⟩
+  cases Nat.le_total r (d - r) with
+  | inl h =>
+    apply Or.inr
+    have hh : r + (d - r) ≤ (d - r) + (d - r) :=
+      Nat.add_le_add_right h (d - r)
+    exact Eq.mp (congrArg (fun x : Nat => d ≤ x) (Nat.two_mul (d - r)).symm)
+      (Eq.mp (congrArg (fun x : Nat => x ≤ (d - r) + (d - r)) hs) hh)
+  | inr h =>
+    apply Or.inl
+    have hh : r + (d - r) ≤ r + r := Nat.add_le_add_left h r
+    exact Eq.mp (congrArg (fun x : Nat => d ≤ x) (Nat.two_mul r).symm)
+      (Eq.mp (congrArg (fun x : Nat => x ≤ r + r) hs) hh)
 
 /-- Absolute difference of nonnegative integer counts, with no signed underflow. -/
 def batch4CountDistance (a b : Nat) : Nat := (a - b) + (b - a)
@@ -214,6 +263,26 @@ def batch4PairL1 (p q : Nat × Nat) : Nat :=
 /-- L1 numerator for a three-element law with a common positive denominator. -/
 def batch4TripleL1 (p q : Nat × Nat × Nat) : Nat :=
   batch4CountDistance p.1 q.1 + batch4PairL1 p.2 q.2
+
+private theorem repairDistanceOfLe {a b : Nat} (h : a ≤ b) :
+    batch4CountDistance a b = b - a :=
+  (congrArg (fun x : Nat => x + (b - a)) (repairSubZeroOfLe h)).trans
+    (Nat.zero_add (b - a))
+
+private theorem repairDistanceOfGe {a b : Nat} (h : b ≤ a) :
+    batch4CountDistance a b = a - b :=
+  (congrArg (fun x : Nat => (a - b) + x) (repairSubZeroOfLe h)).trans
+    (Nat.add_zero (a - b))
+
+private theorem repairPairOpposite (n : Nat) :
+    batch4PairL1 (n, 0) (0, n) = 2 * n := by
+  change batch4CountDistance n 0 + batch4CountDistance 0 n = 2 * n
+  calc
+    _ = (n - 0) + (n - 0) :=
+      repairAddCongr (repairDistanceOfGe (Nat.zero_le n))
+        (repairDistanceOfLe (Nat.zero_le n))
+    _ = n + n := rfl
+    _ = 2 * n := (Nat.two_mul n).symm
 
 /-- M05.03: all rational epsilon=e/d with 0<e<d. Both full count
     vectors normalize to d; their L1 numerator is 2e. Restriction to
@@ -230,9 +299,15 @@ theorem m05_conditioningAmplification (d e : Nat) (he : 0 < e) (hed : e < d) :
     p.2.1 + p.2.2 = e ∧ q.2.1 + q.2.2 = e ∧
     p.2 = (e, 0) ∧ q.2 = (0, e) ∧
     batch4PairL1 p.2 q.2 = 2 * e := by
-  dsimp only [batch4TripleL1, batch4PairL1, batch4CountDistance]
-  exact ⟨he, hed, by omega, by omega, by omega, by omega, by omega,
-    rfl, rfl, by omega⟩
+  have hs : (d - e) + e = d :=
+    (Nat.add_comm (d - e) e).trans (repairAddSubOfLe (Nat.le_of_lt hed))
+  refine ⟨he, hed, hs, hs, ?_, rfl, Nat.zero_add e, rfl, rfl, repairPairOpposite e⟩
+  change batch4CountDistance (d - e) (d - e) + batch4PairL1 (e, 0) (0, e) = 2 * e
+  have hz : batch4CountDistance (d - e) (d - e) = 0 :=
+    (repairDistanceOfLe (Nat.le_refl (d - e))).trans (Nat.sub_self (d - e))
+  calc
+    _ = 0 + 2 * e := repairAddCongr hz (repairPairOpposite e)
+    _ = 2 * e := Nat.zero_add _
 
 /-- M11.01: all rational separations t/(2m) in (0,1/4].
     The two binary laws have common denominator 2m. The first
@@ -246,11 +321,38 @@ theorem m11_bernoulliSeparation (m t : Nat) (ht : 0 < t) (hb : 2 * t ≤ m) :
     p.1 + p.2 = 2 * m ∧ q.1 + q.2 = 2 * m ∧
     q.1 < m ∧ m < p.1 ∧ p ≠ q ∧
     batch4PairL1 p q = 4 * t := by
-  dsimp only [batch4PairL1, batch4CountDistance]
-  refine ⟨by omega, by omega, by omega, by omega, by omega, ?_, by omega⟩
-  intro h
-  have h' : m + t = m - t := congrArg Prod.fst h
-  omega
+  have hdouble : t + t ≤ m := Eq.mp
+    (congrArg (fun x : Nat => x ≤ m) (Nat.two_mul t)) hb
+  have htm : t ≤ m := Nat.le_trans (Nat.le_add_right t t) hdouble
+  have hm : 0 < m := Nat.lt_of_lt_of_le ht htm
+  have hs : t + (m - t) = m := repairAddSubOfLe htm
+  have htotal : (m + t) + (m - t) = 2 * m := calc
+    (m + t) + (m - t) = m + (t + (m - t)) := Nat.add_assoc m t (m - t)
+    _ = m + m := congrArg (fun x : Nat => m + x) hs
+    _ = 2 * m := (Nat.two_mul m).symm
+  have hlt : m - t < m := Nat.sub_lt hm ht
+  have hgt : m < m + t := Nat.lt_add_of_pos_right ht
+  have hle : m - t ≤ m + t :=
+    Nat.le_trans (Nat.sub_le m t) (Nat.le_add_right m t)
+  have hgapAdd : (t + t) + (m - t) = m + t := calc
+    (t + t) + (m - t) = t + (t + (m - t)) := Nat.add_assoc t t (m - t)
+    _ = t + m := congrArg (fun x : Nat => t + x) hs
+    _ = m + t := Nat.add_comm t m
+  have hgap : (m + t) - (m - t) = t + t := calc
+    _ = ((t + t) + (m - t)) - (m - t) :=
+      congrArg (fun x : Nat => x - (m - t)) hgapAdd.symm
+    _ = t + t := repairSubCancel (t + t) (m - t)
+  refine ⟨Nat.mul_pos (by decide) hm, htotal,
+    (Nat.add_comm (m - t) (m + t)).trans htotal, hlt, hgt, ?_, ?_⟩
+  · intro h
+    exact (Nat.ne_of_lt (Nat.lt_trans hlt hgt)) (congrArg Prod.fst h).symm
+  · change batch4CountDistance (m + t) (m - t) +
+      batch4CountDistance (m - t) (m + t) = 4 * t
+    calc
+      _ = ((m + t) - (m - t)) + ((m + t) - (m - t)) :=
+        repairAddCongr (repairDistanceOfGe hle) (repairDistanceOfLe hle)
+      _ = (t + t) + (t + t) := repairAddCongr hgap hgap
+      _ = 4 * t := (repairFourMul t).symm
 
 end AbstractExamples
 
