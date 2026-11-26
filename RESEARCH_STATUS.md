@@ -1,6 +1,6 @@
 # Research status
 
-**26 November 2026 — Post-edition Batch 4 submitted; Batch 3 remains the accepted baseline.**
+**26 November 2026 — Batch 4 compiled but failed the strict named-axiom gate; Batch 3 remains the accepted baseline.**
 
 | Area | Status |
 | --- | --- |
@@ -16,7 +16,7 @@
 | Kernel-checked proofs in this repository | One arithmetic smoke theorem and eleven fixed-example declarations accepted by [Batch 3 CI](https://github.com/HMarcusWH/FFBBP/actions/runs/45723822800); all twelve individually reported axiom-free |
 | Additional fixed-example proofs | [Batch 2 register](verification/ABSTRACT_BATCH2.md): M02.03, M05.01 and M16.02 passed compilation and automated named axiom checks; downloaded artifact and lockfile verified |
 | Batch 3 fixed-example proofs | [Batch 3 register](verification/ABSTRACT_BATCH3.md): M03.02, M04.02, M06.02 and M16.03 passed compilation and twelve-declaration axiom verification; downloaded evidence and lockfile verified |
-| Batch 4 candidates | [Batch 4 register](verification/ABSTRACT_BATCH4.md): M09.01, M09.02, M05.03 and M11.01 submitted; compilation and sixteen named axiom-free reports pending. Ten Python test methods passed local Python 3.13.5 on the Git-blob-matched source; [hosted Batch 4 run](https://github.com/HMarcusWH/FFBBP/actions/runs/45818203518) observed queued. Accepted counts remain at Batch 3. |
+| Batch 4 candidates | [Batch 4 register](verification/ABSTRACT_BATCH4.md): [hosted run](https://github.com/HMarcusWH/FFBBP/actions/runs/45818203518) passed 10 Python tests and compiled all 16 Lean declarations. 13/16 axiom-free; three depend on propext and Quot.sound. Strict gate failed; artifact upload skipped. No batch acceptance or inventory promotion. [Batch 5 draft PR](https://github.com/HMarcusWH/FFBBP/pull/1) is blocked on resolution. |
 | Abstract formalization scope | [G08 R1 proof register](verification/G08_R1_PROOF_REGISTER.md); initial fixed examples M04, M08, M14, M16; Batch 2 adds M02, M05 and an additional M16 example; Batch 3 adds examples in M03, M04, M06 and M16 |
 | Claim reconciliation | [G11 register](verification/G11_CLAIM_RECONCILIATION.md): historical G11 coverage retained; current coverage is eight sections with Lean-checked fixed examples, six of which also have Python checks; nine prose/synthesis only |
 | Statement-level inventory | [Abstract statement inventory](verification/ABSTRACT_STATEMENT_INVENTORY.md): 40 editorially grouped public claims/examples; 7 with Lean and Python evidence, 4 with Lean evidence only, 0 with Python evidence only, 29 prose/logical discussion; exact grouped-claim scope retained |
