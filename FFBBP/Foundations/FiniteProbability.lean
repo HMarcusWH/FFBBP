@@ -286,7 +286,6 @@ private theorem riskSumBound (a b : Nat) (rows : List (Nat × Nat)) :
   | nil =>
     change 0 * square (gap a b) ≤ 2 * (0 + 0)
     rw [Nat.zero_mul]
-    exact Nat.zero_le _
   | cons r rs ih =>
     change (r.2 + estimateMass rs) * square (gap a b) ≤
       2 * ((r.2 * square (gap r.1 a) + riskNumerator a rs) +

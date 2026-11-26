@@ -22,3 +22,11 @@ Six additional Python exact Fraction methods independently check finite prior od
 SUBMITTED — native compilation and all 32 strict named axiom-free reports pending. All 26 previously accepted statements and proof bodies remain unchanged; the root imports and audit list are extended. Dependency pins, manifest, structural module and frozen candidate edition remain unchanged. The accepted inventory is 25/40 (16 L+T, 9 L-only, 15 P). If the six candidates and evidence pass, 31/40 groups will have corresponding Lean evidence (22 L+T, 9 L-only, 9 P). M10 adds one section for 15/17 with Lean evidence. All partial scopes must remain visible when promoting the rows.
 
 Independent review, library-wide axiom auditing and the remaining full probability-measure/real-valued results remain open. No operational, original project-specific or scientific qualification is granted.
+
+## R1 minimal compiler repair — 2026-11-26
+
+[Initial run 45856893466](https://github.com/HMarcusWH/FFBBP/actions/runs/45856893466) passed all 21 Python methods (job 140037523737, Python 3.14.4). Lean job 140037524154 failed building FiniteProbability.lean at line 289:4 with the sole reported error "No goals to be solved". The 32-name audit was skipped. Failed-build evidence was uploaded as artifact 15135828676 (1472 bytes, provider SHA-256 `6089540fd53f28a53cec10710ebaee8dc2205a3699088f29218e2d3ce331a4c5`). This records the observed provider metadata, not an independent archive rehash.
+
+R1 removes only the redundant `exact Nat.zero_le _` instruction from the nil case of riskSumBound; the preceding rewrite already closed the goal. Original candidate source blob b7502ff01e35ef984a578ee841a9394e8c360020; all six public propositions, other proof terms, prior 26 declarations, 21 Python methods, required named reports, lockfile and frozen edition remain unchanged. No axiom exception or theorem weakening. Native verification remains pending at submission.
+
+The [Batch 6 main replay](https://github.com/HMarcusWH/FFBBP/actions/runs/45855927304) has now passed both jobs, 161 build jobs, 26 exact axiom-free reports and 15 Python methods. The Batch 6 replay is no longer a merge blocker. R1 must still pass compilation, all 32 strict reports, Python regression and evidence review before merge.
