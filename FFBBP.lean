@@ -1,4 +1,5 @@
 import Mathlib.Data.Nat.Basic
+import FFBBP.Foundations.Structural
 
 namespace FFBBP
 
@@ -557,5 +558,11 @@ end AbstractExamples
 #print axioms AbstractExamples.m13_parityIdentifiedGrid
 #print axioms AbstractExamples.m13_endpointIdentifiedSet
 #print axioms AbstractExamples.m15_samplingVarianceCounts
+
+#print axioms StructuralFoundations.m01_observationLawFactorization
+#print axioms StructuralFoundations.m03_orbitQuotientMap
+#print axioms StructuralFoundations.m08_logicalAlternatives
+#print axioms StructuralFoundations.m13_identifiedSetCharacterization
+#print axioms StructuralFoundations.m14_coarseningInclusion
 
 end FFBBP

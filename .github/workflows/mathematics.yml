@@ -62,7 +62,7 @@ jobs:
         run: |
           set -o pipefail
           lake build FFBBP 2>&1 | tee lean-build.log
-      - name: Check twenty-one named declarations and their axiom reports
+      - name: Check twenty-six named declarations and their axiom reports
         run: |
           set -euo pipefail
           lake env lean -DwarningAsError=true FFBBP.lean 2>&1 | tee lean-smoke.log
@@ -88,7 +88,12 @@ jobs:
             FFBBP.AbstractExamples.m07_balancedLikelihoodCounts \
             FFBBP.AbstractExamples.m13_parityIdentifiedGrid \
             FFBBP.AbstractExamples.m13_endpointIdentifiedSet \
-            FFBBP.AbstractExamples.m15_samplingVarianceCounts
+            FFBBP.AbstractExamples.m15_samplingVarianceCounts \
+            FFBBP.StructuralFoundations.m01_observationLawFactorization \
+            FFBBP.StructuralFoundations.m03_orbitQuotientMap \
+            FFBBP.StructuralFoundations.m08_logicalAlternatives \
+            FFBBP.StructuralFoundations.m13_identifiedSetCharacterization \
+            FFBBP.StructuralFoundations.m14_coarseningInclusion
           do
             if ! grep -Fx "'$declaration' does not depend on any axioms" lean-smoke.log; then
               echo "::error::Missing exact axiom-free report for $declaration"

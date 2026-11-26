@@ -1,6 +1,6 @@
 # Research status
 
-**26 November 2026 — Batches 4 and 5 R1 accepted and merged; exact scoped verification reconciled.**
+**26 November 2026 — Batch 6 structural foundations submitted on a development branch; Batches 4 and 5 remain accepted and merged.**
 
 | Area | Status |
 | --- | --- |
@@ -19,6 +19,7 @@
 | Batch 4 candidates | [Batch 4 R1 acceptance](verification/ABSTRACT_BATCH4.md): original gate failed (13/16 axiom-free); repaired statements compiled, 16/16 axiom-free, 10 Python methods passed, downloaded artifact and lockfile verified |
 | Batch 4 R1 repair | [R1 native run](https://github.com/HMarcusWH/FFBBP/actions/runs/45841263893) passed; three proof bodies repaired without statement changes or policy relaxation |
 | Batch 5 R1 repair | [Batch 5 R1 acceptance](verification/ABSTRACT_BATCH5.md): original gate failed (14/21 axiom-free); repaired 21/21 passed, 15 Python methods passed, evidence verified; [PR #1](https://github.com/HMarcusWH/FFBBP/pull/1) merged at f95e12cec70bed68f15abeb900d66f4feac34715 |
+| Batch 6 structural candidates | [Batch 6 register](verification/ABSTRACT_BATCH6.md): five generic logical and structural declarations, 26 strict named axiom-free reports required. Existing 21 declarations and 15 Python methods preserved. No inventory promotion or merge pending native CI and evidence review. |
 | Abstract formalization scope | [G08 R1 proof register](verification/G08_R1_PROOF_REGISTER.md) and Batches 2–5: fixed examples plus parameterized finite-count and rational-grid results; not full real-valued or measure-theoretic formalization |
 | Claim reconciliation | [G11 register](verification/G11_CLAIM_RECONCILIATION.md): historical G11 baseline retained; current coverage is thirteen sections with Lean evidence, eleven also with Python evidence; four prose/synthesis only |
 | Statement-level inventory | [Abstract statement inventory](verification/ABSTRACT_STATEMENT_INVENTORY.md): 40 editorial groups; 16 L+T, 4 L-only, 0 T-only, 20 prose/logical discussion; 20/40 corresponding Lean evidence; partial scopes retained |
