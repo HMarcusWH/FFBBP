@@ -4,13 +4,14 @@ Updated: 2026-11-26. Companion to the [G11 section-level reconciliation](G11_CLA
 
 ## Scope and evidence
 
-The public foundations exposition, Lean source, Python test source, G11 reconciliation and research status were directly inspected. Source identities (foundations refers to the reviewed pre-reconciliation exposition; executable inputs refer to the tested Batch 5 R1 tree):
+The public foundations exposition, Lean source, Python test source, G11 reconciliation and research status were directly inspected. Source identities (foundations refers to the reviewed pre-reconciliation exposition; executable inputs refer to the tested Batch 6 tree):
 
-- `mathematics/FOUNDATIONS.md`: `2595d4ad8f865b6338bb67ee4cc8babc6525d48d`
-- `FFBBP.lean`: `7bb4c3704283f645c794f5da4ae078cb52f672db`
+- `mathematics/FOUNDATIONS.md`: `b4943254ab42ef5fa9e6d82650f41c68a132de1c`
+- `FFBBP.lean`: `14790aefd832b7ccf4489d63c6768cef2335cc20`
+- `FFBBP/Foundations/Structural.lean`: `eea2612c1545242c695249d6da2b517e42672f99`
 - `examples/abstract_counterexamples.py`: `cffe22b3175ba1c5636bd9feb90f86106cf81e70`
 
-Existing verification evidence: [G08 R1 proof register](G08_R1_PROOF_REGISTER.md), [G09 named statement review](G09_PROOF_ASSURANCE.md), [G10 hosted reproducibility](G10_REPRODUCIBILITY.md). [Batch 2 acceptance](ABSTRACT_BATCH2.md) adds three checked fixed-example declarations. [Batch 3 acceptance](ABSTRACT_BATCH3.md) adds four further fixed-example declarations. [Batch 4 R1 acceptance](ABSTRACT_BATCH4.md) adds four declarations and four test methods; [Batch 5 R1 acceptance](ABSTRACT_BATCH5.md) adds five declarations and five test methods. This inventory records the observed builds; it does not itself launch a new compiler run or establish independent review.
+Existing verification evidence: [G08 R1 proof register](G08_R1_PROOF_REGISTER.md), [G09 named statement review](G09_PROOF_ASSURANCE.md), [G10 hosted reproducibility](G10_REPRODUCIBILITY.md). [Batch 2 acceptance](ABSTRACT_BATCH2.md) adds three checked fixed-example declarations. [Batch 3 acceptance](ABSTRACT_BATCH3.md) adds four further fixed-example declarations. [Batch 4 R1 acceptance](ABSTRACT_BATCH4.md) adds four declarations and four test methods; [Batch 5 R1 acceptance](ABSTRACT_BATCH5.md) adds five declarations and five test methods. [Batch 6 acceptance](ABSTRACT_BATCH6.md) adds five structural propositions, with explicit quotient premises where required and no additional Python methods. This inventory records the observed builds; it does not itself launch a new compiler run or establish independent review.
 
 The identifier Mxx.yy denotes a grouped statement or example in the public exposition only. These identifiers are newly assigned for documentary traceability; they do not extend or replace the original project's numbered mathematical obligations. The grouping is editorial, not a canonical theorem decomposition. Definitions, implications, bounds and fixed examples may share a row. The inventory does not assert completeness at the level of individual logical formulas.
 
@@ -25,14 +26,14 @@ Evidence categories:
 
 | ID | Kind | Existing public claim (summary) | Evidence | Verified portion / limitation |
 | --- | --- | --- | --- | --- |
-| M01.01 | Definition / proposition | Identifiability as constancy on observation-law fibers; equivalent unique factorization through the quotient. | P | No corresponding declaration or test. |
+| M01.01 | Definition / proposition | Identifiability as constancy on observation-law fibers; equivalent unique factorization through the quotient. | L | m01_observationLawFactorization constructs a factor map on the primitive observation quotient from fiber constancy and proves pointwise uniqueness. The converse requires explicit quotient soundness; function equality by extensionality and discharge of that premise remain outside the proof. |
 | M01.02 | Probability proposition | Equal observation laws preserve prior odds between two positively weighted simple hypotheses. | P | Prose result under the stated common-law assumptions. |
 | M01.03 | Lower bound | Two-point squared-error lower bound under identical observation laws. | P | Prose proof; no accepted Lean declaration. |
 | M02.01 | Probability proposition | Agreement at a longer finite prefix implies agreement at a shorter prefix. | P | Marginalization argument in prose. |
 | M02.02 | Measure-theoretic proposition | All finite prefix laws determine the law on the sequence product sigma-algebra. | P | Cylinder uniqueness argument in prose. |
 | M02.03 | Fixed counterexample | Independent fair symbols versus a uniformly phased repeating 0011 word: agreement at lengths one and two, disagreement at length three. | L+T | m02_prefixCounts verifies the fixed periodic-phase enumeration and triple counts; Python test_m02_finite_horizon_agreement checks the corresponding example. Equal-weight probability interpretation remains prose. |
 | M02.04 | Conditional-law proposition | Identical history/future joint law gives almost-sure agreement of regular conditional future laws under the stated uniqueness assumptions. | P | Null histories expressly excluded from a pointwise assertion. |
-| M03.01 | Quotient proposition | Law-preserving group orbits lie inside observable-law fibers; the map between quotients is surjective, with the stated condition for injectivity. | P | Prose only. |
+| M03.01 | Quotient proposition | Law-preserving group orbits lie inside observable-law fibers; the map between quotients is surjective, with the stated condition for injectivity. | L | m03_orbitQuotientMap proves law preservation on related pairs for an arbitrary preserving indexed transformation family. With explicit observation-quotient soundness it constructs a surjective quotient map; with additional orbit soundness and exactness it proves the injectivity equivalence. Group-action laws and discharge of the quotient premises remain outside the proof. |
 | M03.02 | Fixed counterexample | The two independent Bernoulli parameter pairs have equal parity probabilities but different products and are not swaps. | L | m03_coinParityCounts verifies fixed parity and product numerators and inequality under exchange; probability interpretation remains prose. |
 | M04.01 | Fixed counterexample | Specified three-state deterministic example admits no commuting reduced map. | L+T | m04_noReducedMap; Python test_m04_present_statistic_is_not_future_law checks the conflicting reduced successors. No general stochastic closure theorem. |
 | M04.02 | Fixed counterexample | Identical binary marginals with different joint laws and covariances in the U,V example. | L | m04_binaryMarginalCounts checks marginal lists, equality counts and signed centered-product sums. Equal weighting and covariance normalization remain prose. |
@@ -46,7 +47,7 @@ Evidence categories:
 | M07.02 | Asymptotic proposition | Almost-sure normalized log-likelihood ratio limit under independent fair-coin observations. | P | Strong-law argument in prose; no general misspecification theorem accepted. |
 | M08.01 | Fixed counterexample | Specified fair-die events have equal marginal probabilities, nonempty intersection and nonexhaustive union. | L+T | m08_overlapCounts proves four face counts. Python test_m08_overlapping_events checks probabilities; equal face weighting supplies the prose interpretation. |
 | M08.02 | Probability bounds | Intersection bounds from inclusion-exclusion and monotonicity for two events. | P | No accepted general event-probability inequality. |
-| M08.03 | Logical limitation | Exclusive labels need not encode exclusive propositions; rejecting an alternative does not imply another without the required premises. | P | Logical discussion; not counted as an accepted theorem. |
+| M08.03 | Logical limitation | Exclusive labels need not encode exclusive propositions; rejecting an alternative does not imply another without the required premises. | L | m08_logicalAlternatives proves elimination under exhaustivity, refutes elimination from exclusivity alone, and exhibits exclusive/exhaustive labels coexisting with overlapping propositions. No probability or empirical interpretation is asserted. |
 | M09.01 | Fixed counterexample | Two binary worlds agree on the stipulated observed input but differ at the unobserved input. | L+T | m09_observationalAgreement proves agreement at the observed Boolean input and disagreement at the other input; test_m09_observational_agreement checks the same worlds. No general extrapolation theorem. |
 | M09.02 | Lower bound | Worst-case binary prediction error at least one half for the stated two-world example. | L+T | m09_worstCaseError proves the rational-grid two-risk numerator sum and doubled-numerator lower bound for every admissible denominator and prediction numerator; test_m09_worst_case_error checks exact Fraction risks on finite grids. Arbitrary real probabilities and a universal error rate are not claimed. |
 | M10.01 | Sharpness example | Constant midpoint attains the two-model squared-error lower bound from M01 for unrestricted real estimates. | P | Prose only; linked to M01.03, not a separate project acceptance. |
@@ -54,12 +55,12 @@ Evidence categories:
 | M11.02 | Finite-sample limitation | Worst-case error lower bound and stated randomized-guess sharpness for the fixed Bernoulli family. | P | Prose only; pointwise versus uniform caveat retained. |
 | M12.01 | Common-limit limitation | Worst-case error bound for the stated k-label common-TV-limit assumptions and randomized-guess sharpness. | P | Prose only. |
 | M12.02 | Fixed example | Adding a neutral fair-coin label gives the stated three-label finite-sample limitation. | P | Prose only. |
-| M13.01 | Definition / interpretation | Identified-set definition and distinction between singleton, multiple values and incompatible empty set. | P | Definition and logical consequences, not a finite-sample confidence set. |
+| M13.01 | Definition / interpretation | Identified-set definition and distinction between singleton, multiple values and incompatible empty set. | L | m13_identifiedSetCharacterization proves singleton membership iff compatibility and fiber constancy, ambiguity iff two compatible models have distinct values, and empty membership iff incompatibility, over arbitrary types. Not a finite-sample confidence set. |
 | M13.02 | Fixed example | Identified interval for face-two probability given the stipulated die parity law. | L+T | m13_parityIdentifiedGrid proves both directions of the exact identified-set characterization on every rational grid with denominator 2m, m>0, by a constructive six-face witness; test_m13_parity_identified_grid checks finite grids. Real-valued identified-set theorem remains prose. |
 | M13.03 | Fixed example | Restricting the declared family to the two endpoint distributions gives a two-point set, not the full interval. | L+T | m13_endpointIdentifiedSet proves both directions for the two endpoint models for every positive m; test_m13_endpoint_identified_set checks finite grids and the excluded interior. The rational-grid scope is retained. |
 | M14.01 | Probability inequality | Total variation contraction for a common finite stochastic matrix under the stated row-normalization assumption. | P | General inequality is not proved by m14_parityLoss. |
 | M14.02 | Fixed counterexample | Two disjoint equally weighted face lists have identical parity laws. | L+T | m14_parityLoss proves list distinction, disjointness and equality of mapped lists; Python test_m14_parity_erases_distinguishability checks the TV value before reduction and equal parity masses. |
-| M14.03 | Set inclusion | Compatible model set, and hence identified set, cannot shrink under the specified common transformation alone. | P | Prose inclusion argument only. |
+| M14.03 | Set inclusion | Compatible model set, and hence identified set, cannot shrink under the specified common transformation alone. | L | m14_coarseningInclusion proves preservation of compatible models and inclusion of identified sets under any common law transformation. Does not establish M14.01 TV contraction. |
 | M15.01 | Variance example | Parity-sampling variance and comparison with the fixed identified-set diameter from M13. | L+T | m15_samplingVarianceCounts proves enumerated fair-trial moments for n=1,2,4 and fixed endpoint separation. test_m15_sampling_variance checks exact moments on finite grids for three probabilities and n=1..8. General n, nonfair probability and real square-root formula remain prose; quantities are not additive. |
 | M15.02 | Coverage lower bound | Confidence-set diameter probability and expectation bounds under common observation law, stated measurable coverage and alpha assumptions. | P | Prose only; not a confidence-set construction. |
 | M16.01 | Fixed counterexample | Equal aggregate and component means with different equality-event probabilities for the stated two allocations. | L+T | m16_aggregateAmbiguity proves equal sums/lists and different equality counts for scaled equal-weight lists. Python test_m16_equal_aggregate_distinct_components checks corresponding fixed values. |
@@ -77,14 +78,14 @@ The introductory notation and reading guide define conventions and recommend bac
 | Public sections accounted for (including M17 synthesis) | 17 |
 | Grouped statement/example rows | 40 |
 | L+T rows | 16 |
-| L-only rows | 4 |
+| L-only rows | 9 |
 | T-only rows | 0 |
-| P rows | 20 |
-| Distinct accepted mathematical declarations mapped | 20 |
+| P rows | 15 |
+| Distinct accepted mathematical declarations mapped | 25 |
 | Distinct Python test methods mapped | 15 |
 | Arithmetic smoke theorem (separate from research rows) | 1 |
 
-All forty identifiers are unique. All fifteen Python test method names and all twenty accepted mathematical declaration names appear in the register. The M16 Python method maps to two rows, so sixteen L+T groups correspond to fifteen test methods. Thirteen of seventeen sections have corresponding Lean evidence, eleven of those also have Python evidence; four sections remain prose/synthesis only. Counts describe partial or full evidence at the grouped-statement level, not percentages of theorem completion or scientific qualification. Batches 2–5 document the precise accepted propositions; general probability-measure and asymptotic results are not automatically accepted. The pinned RC1 edition remains unchanged.
+All forty identifiers are unique. All fifteen Python test method names and all twenty-five accepted mathematical declaration names appear in the register. The M16 Python method maps to two rows, so sixteen L+T groups correspond to fifteen test methods. Fourteen of seventeen sections have corresponding Lean evidence, eleven of those also have Python evidence; three sections remain prose/synthesis only. Counts describe partial or full evidence at the grouped-statement level, not percentages of theorem completion or scientific qualification. Batches 2–6 document the precise accepted propositions; general probability-measure and asymptotic results are not automatically accepted. The two quotient results preserve their explicit hypotheses and pointwise uniqueness scope. The pinned RC1 edition remains unchanged.
 
 ## Remaining assurance
 
