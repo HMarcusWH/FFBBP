@@ -354,6 +354,184 @@ theorem m11_bernoulliSeparation (m t : Nat) (ht : 0 < t) (hb : 2 * t ≤ m) :
       _ = (t + t) + (t + t) := repairAddCongr hgap hgap
       _ = 4 * t := (repairFourMul t).symm
 
+private theorem repairMulLeRight {a b : Nat} (h : a ≤ b) (k : Nat) :
+    a * k ≤ b * k := by
+  induction k with
+  | zero => exact Nat.le_refl 0
+  | succ k ih => exact Nat.add_le_add ih h
+
+private theorem repairMulLeLeft {a b : Nat} (h : a ≤ b) (k : Nat) :
+    k * a ≤ k * b := by
+  rw [Nat.mul_comm k a, Nat.mul_comm k b]
+  exact repairMulLeRight h k
+
+private theorem repairPowLe {a b : Nat} (h : a ≤ b) (n : Nat) :
+    a ^ n ≤ b ^ n := by
+  induction n with
+  | zero => exact Nat.le_refl 1
+  | succ n ih =>
+    exact Nat.le_trans (repairMulLeRight ih a) (repairMulLeLeft h (b ^ n))
+
+private theorem repairMulAdd (a b c : Nat) : a * (b + c) = a * b + a * c := by
+  induction c with
+  | zero => rfl
+  | succ c ih =>
+    change a * (b + c) + a = a * b + (a * c + a)
+    exact (congrArg (fun x : Nat => x + a) ih).trans
+      (Nat.add_assoc (a * b) (a * c) a)
+
+private theorem repairMulAssoc (a b c : Nat) : (a * b) * c = a * (b * c) := by
+  induction c with
+  | zero => rfl
+  | succ c ih =>
+    change (a * b) * c + a * b = a * (b * c + b)
+    exact (congrArg (fun x : Nat => x + a * b) ih).trans
+      (repairMulAdd a (b * c) b).symm
+
+private theorem repairMulPow (a b k : Nat) : (a * b) ^ k = a ^ k * b ^ k := by
+  induction k with
+  | zero => rfl
+  | succ k ih =>
+    change (a * b) ^ k * (a * b) = (a ^ k * a) * (b ^ k * b)
+    calc
+      _ = (a ^ k * b ^ k) * (a * b) := congrArg (fun x : Nat => x * (a * b)) ih
+      _ = a ^ k * (b ^ k * (a * b)) := repairMulAssoc (a ^ k) (b ^ k) (a * b)
+      _ = a ^ k * ((b ^ k * a) * b) :=
+        congrArg (fun x : Nat => a ^ k * x) (repairMulAssoc (b ^ k) a b).symm
+      _ = a ^ k * ((a * b ^ k) * b) :=
+        congrArg (fun x : Nat => a ^ k * (x * b)) (Nat.mul_comm (b ^ k) a)
+      _ = a ^ k * (a * (b ^ k * b)) :=
+        congrArg (fun x : Nat => a ^ k * x) (repairMulAssoc a (b ^ k) b)
+      _ = (a ^ k * a) * (b ^ k * b) :=
+        (repairMulAssoc (a ^ k) a (b ^ k * b)).symm
+
+/-- M05.04: the all-zero word and its complement for a horizon h.
+    With rational epsilon=e/d, the independent-word mass of the
+    all-zero event is (d-e)^h/d^h. The two-event count vectors give
+    the exact L1 numerator; for a point mass the complement event
+    captures the full finite-law TV. The two limits remain prose. -/
+theorem m05_horizonGapCounts (d e h : Nat) (he : 0 < e) (hed : e < d) :
+    let total := d ^ h
+    let zeroMass := (d - e) ^ h
+    0 < total ∧ zeroMass ≤ total ∧
+    zeroMass + (total - zeroMass) = total ∧
+    batch4PairL1 (total, 0) (zeroMass, total - zeroMass) =
+      2 * (total - zeroMass) := by
+  have hd : 0 < d := Nat.lt_of_lt_of_le he (Nat.le_of_lt hed)
+  have hle : (d - e) ^ h ≤ d ^ h :=
+    repairPowLe (Nat.sub_le d e) h
+  refine ⟨Nat.pow_pos hd, hle, repairAddSubOfLe hle, ?_⟩
+  change batch4CountDistance (d ^ h) ((d - e) ^ h) +
+    batch4CountDistance 0 (d ^ h - (d - e) ^ h) = 2 * (d ^ h - (d - e) ^ h)
+  calc
+    _ = (d ^ h - (d - e) ^ h) + ((d ^ h - (d - e) ^ h) - 0) :=
+      repairAddCongr (repairDistanceOfGe hle) (repairDistanceOfLe (Nat.zero_le _))
+    _ = (d ^ h - (d - e) ^ h) + (d ^ h - (d - e) ^ h) := rfl
+    _ = 2 * (d ^ h - (d - e) ^ h) := (Nat.two_mul _).symm
+
+/-- M07.01: balanced words have k heads and k tails, and both
+    candidate likelihoods have denominator 5^(2*k). The numerator
+    ratio 6^k/4^k equals 3^k/2^k by positive cross multiplication.
+    At common denominator ten the true parameter differs from the
+    first candidate by one unit. No convergence theorem is asserted. -/
+theorem m07_balancedLikelihoodCounts (k : Nat) :
+    0 < (4 : Nat) ^ k ∧ 0 < (2 : Nat) ^ k ∧
+    (3 * 2 : Nat) ^ k * 2 ^ k = (4 * 1 : Nat) ^ k * 3 ^ k ∧
+    (6 : Nat) - 5 = 1 ∧ (6 : Nat) ≠ 5 ∧ (8 : Nat) ≠ 5 := by
+  have hl : (6 : Nat) ^ k * 2 ^ k = (12 : Nat) ^ k :=
+    (repairMulPow 6 2 k).symm
+  have hr : (4 : Nat) ^ k * 3 ^ k = (12 : Nat) ^ k :=
+    (repairMulPow 4 3 k).symm
+  exact ⟨Nat.pow_pos (by decide), Nat.pow_pos (by decide),
+    hl.trans hr.symm, by decide, by decide, by decide⟩
+
+/-- Six nonnegative integer face masses with a common denominator. -/
+structure Batch5DieCounts where
+  one : Nat
+  two : Nat
+  three : Nat
+  four : Nat
+  five : Nat
+  six : Nat
+
+/-- The parity law is fair under denominator 2m, with m positive. -/
+def batch5FairParity (m : Nat) (p : Batch5DieCounts) : Prop :=
+  0 < m ∧
+  p.one + p.three + p.five = m ∧
+  p.two + p.four + p.six = m
+
+def batch5DieLow (m : Nat) : Batch5DieCounts := ⟨m, 0, 0, m, 0, 0⟩
+def batch5DieHigh (m : Nat) : Batch5DieCounts := ⟨m, m, 0, 0, 0, 0⟩
+
+/-- M13.02: exact identified interval on every rational grid with
+    denominator 2m. Necessity uses the even-mass constraint;
+    sufficiency constructs a compatible six-face distribution. -/
+theorem m13_parityIdentifiedGrid (m u : Nat) (hm : 0 < m) :
+    (∃ p : Batch5DieCounts, batch5FairParity m p ∧ p.two = u) ↔ u ≤ m := by
+  constructor
+  · intro h
+    obtain ⟨p, hp, hu⟩ := h
+    have heven : p.two + p.four + p.six = m := hp.2.2
+    have hle : p.two ≤ m := Nat.le_trans (Nat.le_add_right p.two p.four)
+      (Nat.le_trans (Nat.le_add_right (p.two + p.four) p.six) (Nat.le_of_eq heven))
+    exact Eq.mp (congrArg (fun x : Nat => x ≤ m) hu) hle
+  · intro hu
+    refine ⟨⟨m, u, 0, m - u, 0, 0⟩, ?_, rfl⟩
+    change 0 < m ∧ m + 0 + 0 = m ∧ u + (m - u) + 0 = m
+    exact ⟨hm, rfl, repairAddSubOfLe hu⟩
+
+/-- M13.03: after restricting the model family to the two endpoint
+    distributions, the identified set contains only those endpoints. -/
+theorem m13_endpointIdentifiedSet (m u : Nat) (hm : 0 < m) :
+    (∃ p : Batch5DieCounts,
+      (p = batch5DieLow m ∨ p = batch5DieHigh m) ∧
+      batch5FairParity m p ∧ p.two = u) ↔ u = 0 ∨ u = m := by
+  constructor
+  · intro h
+    obtain ⟨p, hp, _, hu⟩ := h
+    cases hp with
+    | inl h =>
+      cases h
+      exact Or.inl hu.symm
+    | inr h =>
+      cases h
+      exact Or.inr hu.symm
+  · intro h
+    cases h with
+    | inl hu =>
+      refine ⟨batch5DieLow m, Or.inl rfl, ?_, hu.symm⟩
+      change 0 < m ∧ m + 0 + 0 = m ∧ 0 + m + 0 = m
+      exact ⟨hm, rfl, Nat.zero_add m⟩
+    | inr hu =>
+      refine ⟨batch5DieHigh m, Or.inr rfl, ?_, hu.symm⟩
+      change 0 < m ∧ m + 0 + 0 = m ∧ m + 0 + 0 = m
+      exact ⟨hm, rfl, rfl⟩
+
+/-- All signed sums for n independent equiprobable -1/+1 increments.
+    Repeated list entries retain their multiplicities. -/
+def batch5FairSignSums : Nat → List Int
+  | 0 => [0]
+  | n + 1 => (batch5FairSignSums n).flatMap (fun s => [s - 1, s + 1])
+
+/-- M15.01: finite exact moments of the doubled centered count for
+    one, two and four fair trials. The corresponding empirical
+    proportion variance is the centered-square sum divided by
+    2^n * (2n)^2. The identified-grid endpoints have numerator
+    separation two under denominator four. General n, nonfair p,
+    and the real square-root formula remain outside this declaration. -/
+theorem m15_samplingVarianceCounts :
+    (batch5FairSignSums 1).length = 2 ∧
+    (batch5FairSignSums 1).sum = 0 ∧
+    ((batch5FairSignSums 1).map (fun x => x * x)).sum = 2 ∧
+    (batch5FairSignSums 2).length = 4 ∧
+    (batch5FairSignSums 2).sum = 0 ∧
+    ((batch5FairSignSums 2).map (fun x => x * x)).sum = 8 ∧
+    (batch5FairSignSums 4).length = 16 ∧
+    (batch5FairSignSums 4).sum = 0 ∧
+    ((batch5FairSignSums 4).map (fun x => x * x)).sum = 64 ∧
+    (batch5DieLow 2).two = 0 ∧ (batch5DieHigh 2).two = 2 := by
+  decide
+
 end AbstractExamples
 
 #print axioms bootstrapSmoke
@@ -373,5 +551,11 @@ end AbstractExamples
 #print axioms AbstractExamples.m09_worstCaseError
 #print axioms AbstractExamples.m05_conditioningAmplification
 #print axioms AbstractExamples.m11_bernoulliSeparation
+
+#print axioms AbstractExamples.m05_horizonGapCounts
+#print axioms AbstractExamples.m07_balancedLikelihoodCounts
+#print axioms AbstractExamples.m13_parityIdentifiedGrid
+#print axioms AbstractExamples.m13_endpointIdentifiedSet
+#print axioms AbstractExamples.m15_samplingVarianceCounts
 
 end FFBBP
