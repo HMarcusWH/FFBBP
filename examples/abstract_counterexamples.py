@@ -116,5 +116,67 @@ class AbstractCounterexamples(unittest.TestCase):
                     self.assertEqual(sum(abs(a - b) for a, b in zip(p, q)) / 2, 2 * delta)
 
 
+    def test_m05_horizon_gap(self):
+        from itertools import product
+        for d in range(2, 7):
+            for e in range(1, d):
+                eps = F(e, d)
+                for h in range(7):
+                    words = list(product((0, 1), repeat=h))
+                    zero = (0,) * h
+                    p = [F(word == zero) for word in words]
+                    q = [eps ** sum(word) * (1 - eps) ** (h - sum(word))
+                         for word in words]
+                    self.assertEqual(sum(q), 1)
+                    self.assertEqual(sum(abs(a - b) for a, b in zip(p, q)) / 2,
+                                     1 - (1 - eps) ** h)
+
+    def test_m07_balanced_likelihood(self):
+        previous = F(0)
+        for k in range(21):
+            a = F(3, 5) ** k * F(2, 5) ** k
+            b = F(4, 5) ** k * F(1, 5) ** k
+            self.assertGreater(b, 0)
+            self.assertEqual(a / b, F(3, 2) ** k)
+            posterior = a / (a + b)
+            self.assertGreater(posterior, previous)
+            previous = posterior
+        self.assertEqual(abs(F(3, 5) - F(1, 2)), F(1, 10))
+
+    def test_m13_parity_identified_grid(self):
+        # Enumerate all even-face count compositions for each denominator.
+        for m in range(1, 17):
+            compatible = set()
+            for two in range(m + 1):
+                for four in range(m - two + 1):
+                    six = m - two - four
+                    p = tuple(F(x, 2 * m) for x in (m, two, 0, four, 0, six))
+                    self.assertEqual(sum(p), 1)
+                    self.assertEqual(sum(p[1::2]), F(1, 2))
+                    compatible.add(p[1])
+            self.assertEqual(compatible, {F(u, 2 * m) for u in range(m + 1)})
+
+    def test_m13_endpoint_identified_set(self):
+        for m in range(2, 17):
+            laws = [(m, 0, 0, m, 0, 0), (m, m, 0, 0, 0, 0)]
+            p = [tuple(F(x, 2 * m) for x in law) for law in laws]
+            self.assertTrue(all(sum(v) == 1 and sum(v[1::2]) == F(1, 2) for v in p))
+            self.assertEqual({v[1] for v in p}, {F(0), F(1, 2)})
+            self.assertNotIn(F(1, 2 * m), {v[1] for v in p})
+
+    def test_m15_sampling_variance(self):
+        from itertools import product
+        for p in (F(1, 4), F(1, 2), F(3, 4)):
+            for n in range(1, 9):
+                weighted = [(F(sum(word), n),
+                             p ** sum(word) * (1 - p) ** (n - sum(word)))
+                            for word in product((0, 1), repeat=n)]
+                self.assertEqual(sum(w for _, w in weighted), 1)
+                self.assertEqual(sum(x * w for x, w in weighted), p)
+                self.assertEqual(sum((x - p) ** 2 * w for x, w in weighted),
+                                 p * (1 - p) / n)
+        self.assertEqual(F(1, 2) - F(0), F(1, 2))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

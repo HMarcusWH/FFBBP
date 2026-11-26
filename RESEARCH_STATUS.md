@@ -1,6 +1,6 @@
 # Research status
 
-**26 November 2026 — Post-edition Batch 4 submitted; Batch 3 remains the accepted baseline.**
+**26 November 2026 — Batch 5 development branch submitted; Batch 3 remains the accepted Lean baseline.**
 
 | Area | Status |
 | --- | --- |
@@ -17,6 +17,7 @@
 | Additional fixed-example proofs | [Batch 2 register](verification/ABSTRACT_BATCH2.md): M02.03, M05.01 and M16.02 passed compilation and automated named axiom checks; downloaded artifact and lockfile verified |
 | Batch 3 fixed-example proofs | [Batch 3 register](verification/ABSTRACT_BATCH3.md): M03.02, M04.02, M06.02 and M16.03 passed compilation and twelve-declaration axiom verification; downloaded evidence and lockfile verified |
 | Batch 4 candidates | [Batch 4 register](verification/ABSTRACT_BATCH4.md): M09.01, M09.02, M05.03 and M11.01 submitted; compilation and sixteen named axiom-free reports pending. Ten Python test methods passed local Python 3.13.5 on the Git-blob-matched source; [hosted Batch 4 run](https://github.com/HMarcusWH/FFBBP/actions/runs/45818203518) observed queued. Accepted counts remain at Batch 3. |
+| Batch 5 candidates | [Batch 5 register](verification/ABSTRACT_BATCH5.md): five additional targets, 21 required named axiom-free reports including all prior candidates, and 15 Python methods. Staged on a separate branch; no new Lean acceptance or main-branch advancement. Batch 4 hosted Python job passed ten tests; Lean acceptance still pending at branch submission. |
 | Abstract formalization scope | [G08 R1 proof register](verification/G08_R1_PROOF_REGISTER.md); initial fixed examples M04, M08, M14, M16; Batch 2 adds M02, M05 and an additional M16 example; Batch 3 adds examples in M03, M04, M06 and M16 |
 | Claim reconciliation | [G11 register](verification/G11_CLAIM_RECONCILIATION.md): historical G11 coverage retained; current coverage is eight sections with Lean-checked fixed examples, six of which also have Python checks; nine prose/synthesis only |
 | Statement-level inventory | [Abstract statement inventory](verification/ABSTRACT_STATEMENT_INVENTORY.md): 40 editorially grouped public claims/examples; 7 with Lean and Python evidence, 4 with Lean evidence only, 0 with Python evidence only, 29 prose/logical discussion; exact grouped-claim scope retained |
