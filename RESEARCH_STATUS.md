@@ -1,6 +1,6 @@
 # Research status
 
-**27 November 2026 — Batch 7 R1 accepted and merged; finite probability evidence reconciled.**
+**27 November 2026 — Batch 8 candidates staged; Batch 7 R1 remains the accepted baseline.**
 
 | Area | Status |
 | --- | --- |
@@ -21,6 +21,7 @@
 | Batch 5 R1 repair | [Batch 5 R1 acceptance](verification/ABSTRACT_BATCH5.md): original gate failed (14/21 axiom-free); repaired 21/21 passed, 15 Python methods passed, evidence verified; [PR #1](https://github.com/HMarcusWH/FFBBP/pull/1) merged at f95e12cec70bed68f15abeb900d66f4feac34715 |
 | Batch 6 structural candidates | [Batch 6 acceptance](verification/ABSTRACT_BATCH6.md): five generic structural propositions, 26/26 axiom-free reports, 161 successful build jobs, 15 Python methods passed; downloaded archive and lockfile verified; [PR #2](https://github.com/HMarcusWH/FFBBP/pull/2) merged at 855f9c2f61d62ef0879cf169e6ec7f8a8dc41143; explicit quotient premises retained |
 | Batch 7 candidates | [Batch 7 R1 acceptance](verification/ABSTRACT_BATCH7.md): initial compiler failure repaired without statement changes; 32/32 axiom-free, 162 build jobs, 21 Python tests passed; evidence rehashed; [PR #3](https://github.com/HMarcusWH/FFBBP/pull/3) merged at b4b4c9b2d9ce4f1beac174960e557fcd046b57f0 |
+| Batch 8 candidates | [Batch 8 register](verification/ABSTRACT_BATCH8.md): four additional scoped propositions, 36 named zero-axiom reports and 24 Python methods required. Draft pending native verification and evidence review; accepted inventory remains 31/40. Batch 7 main replay pending at staging. |
 | Abstract formalization scope | [G08 R1 proof register](verification/G08_R1_PROOF_REGISTER.md) and Batches 2–7: fixed examples, finite-count/rational-grid results and generic structural propositions. Quotient and conditional-moment premises explicit; general real and measure-theoretic statements remain outside this scope |
 | Claim reconciliation | [G11 register](verification/G11_CLAIM_RECONCILIATION.md): historical baseline retained; fifteen sections with Lean evidence, fourteen also with Python evidence; two prose/synthesis only |
 | Statement-level inventory | [Abstract statement inventory](verification/ABSTRACT_STATEMENT_INVENTORY.md): 40 editorial groups; 22 L+T, 9 L-only, 0 T-only, 9 prose; 31/40 corresponding Lean evidence; partial scopes retained |
