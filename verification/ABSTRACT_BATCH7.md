@@ -30,3 +30,30 @@ Independent review, library-wide axiom auditing and the remaining full probabili
 R1 removes only the redundant `exact Nat.zero_le _` instruction from the nil case of riskSumBound; the preceding rewrite already closed the goal. Original candidate source blob b7502ff01e35ef984a578ee841a9394e8c360020; all six public propositions, other proof terms, prior 26 declarations, 21 Python methods, required named reports, lockfile and frozen edition remain unchanged. No axiom exception or theorem weakening. Native verification remains pending at submission.
 
 The [Batch 6 main replay](https://github.com/HMarcusWH/FFBBP/actions/runs/45855927304) has now passed both jobs, 161 build jobs, 26 exact axiom-free reports and 15 Python methods. The Batch 6 replay is no longer a merge blocker. R1 must still pass compilation, all 32 strict reports, Python regression and evidence review before merge.
+
+## Observed R1 acceptance and merge — 2026-11-27
+
+**ACCEPTED — exact scoped propositions; strict zero-axiom gate passed.** [Run 45866629292](https://github.com/HMarcusWH/FFBBP/actions/runs/45866629292) on R1 head f0c2c5c4e7ab7e31fc0f2cae31efe986a922adc8 completed both jobs. Lean job 140071005959: Lean 4.35.0, 162 successful build jobs, all 32 distinct named axiom-free reports. Python job 140071005425: 21/21 passed under Python 3.14.4. No nonempty axiom reports. No statement weakening or policy exception.
+
+| Tested input | Git blob SHA |
+| --- | --- |
+| FFBBP.lean | ebbbfe2901c093531bb31649050f20c666d90d1d |
+| FFBBP/Foundations/Structural.lean | eea2612c1545242c695249d6da2b517e42672f99 |
+| FFBBP/Foundations/FiniteProbability.lean | 64abcc74f2d279b0d0017595b8042046a0a22cf9 |
+| .github/workflows/mathematics.yml | cb35d844a4df6c51a4aedd5bcfece3d7addbb083 |
+| examples/abstract_counterexamples.py | 4fca527f3e48bba1017194fcfc00726ae9af90d6 |
+| lake-manifest.json | d0d5afd6f802f8159255011089485e0806a64fc1 |
+| lean-toolchain | a6aff065db2882c535684f8c5bcd4f16e9a23915 |
+| lakefile.toml | 327357be180e0cfa63b36fe6e78ad8b1f45f7eb5 |
+
+[Evidence artifact 15141308920](https://github.com/HMarcusWH/FFBBP/actions/runs/45866629292/artifacts/15141308920) downloaded in this reconciliation; 2431 bytes, SHA-256 `bfe95c9523176693e67d8047e3724fc24f89423b1e2c296e03ca8213c5e1b30f` independently recomputed and matches provider. ZIP CRC checks passed; all three expected members present. Manifest contains nine pinned revisions and independently recomputed Git blob matches the lockfile.
+
+| Member | Bytes | SHA-256 |
+| --- | ---: | --- |
+| lake-manifest.json | 3123 | 4cf42be720e442c8476af0d94dccd7c9228e4abb569b64cd51d5edbd2dc2c79a |
+| lean-smoke.log | 2501 | 283fd9d718ca11d59ae3819934fffe5a8789935591ec4a95c84b1be6da0d0d4e |
+| lean-build.log | 3852 | b0a848e5dfdad1490f24010e1019e76e43ae7ddcd7564ca37c59de87852f275e |
+
+Exact extracted report preserved at [BATCH7_R1_AXIOM_REPORT.txt](evidence/BATCH7_R1_AXIOM_REPORT.txt), Git blob `21f09b530c97e476036640db428d291cebf9f62a`, matched to the extracted bytes. Tested PR checkout 61b3f0d0c27e5ffecd17b04b3d342407adfdac0f and R1 head f0c2c5c4e7ab7e31fc0f2cae31efe986a922adc8 share tree `06f32c6c0aab2a631f12a2f0a0ff8efa81053966`. [PR #3](https://github.com/HMarcusWH/FFBBP/pull/3) merged at [b4b4c9b2d9ce4f1beac174960e557fcd046b57f0](https://github.com/HMarcusWH/FFBBP/commit/b4b4c9b2d9ce4f1beac174960e557fcd046b57f0); comparison to the tested PR checkout shows only verification/ABSTRACT_BATCH6.md changed, preserving the intervening documentation-only replay record. All executable inputs match the tested source. Main push replay is a separate subsequent check.
+
+Accepted inventory: 31/40 (22 L+T, 9 L-only, 9 P), fifteen sections with Lean evidence, fourteen with Python evidence. All finite-count, quotient and conditional-moment limitations above remain. The frozen RC1 edition is unchanged. Independent review, general measure-theoretic formalization, maintenance migrations and release authorization remain outside this acceptance.
