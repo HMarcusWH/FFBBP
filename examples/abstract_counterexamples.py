@@ -263,5 +263,66 @@ class AbstractCounterexamples(unittest.TestCase):
                          tuple(sum(q[i] * k[i][j] for i in range(2)) for j in range(2)))
 
 
+    def test_m02_prefix_marginalization(self):
+        from itertools import product
+        def marginal(rows, n):
+            out = {}
+            for word, mass in rows:
+                key = word[:n]
+                out[key] = out.get(key, F(0)) + mass
+            return out
+        for horizon in range(1, 6):
+            words = list(product((0, 1), repeat=horizon))
+            total = sum(range(1, len(words) + 1))
+            p = [(w, F(i + 1, total)) for i, w in enumerate(words)]
+            # A different enumeration with each mass split into two pieces.
+            q = [(w, mass / 2) for w, mass in reversed(p) for _ in range(2)]
+            self.assertEqual(marginal(p, horizon), marginal(q, horizon))
+            for long in range(horizon + 1):
+                lp, lq = marginal(p, long), marginal(q, long)
+                self.assertEqual(lp, lq)
+                for short in range(long + 1):
+                    self.assertEqual(marginal(lp.items(), short), marginal(p, short))
+                    self.assertEqual(marginal(lp.items(), short), marginal(lq.items(), short))
+                    self.assertEqual(sum(marginal(p, short).values()), 1)
+
+    def test_m02_conditional_law_agreement(self):
+        counts = ((2, 3, 0), (0, 1, 4), (0, 0, 0))
+        total = sum(sum(row) for row in counts)
+        p = [[F(c, total) for c in row] for row in counts]
+        q = [[F(3 * c, 3 * total) for c in row] for row in counts]
+        self.assertEqual(p, q)
+        positive, null = [], []
+        for h, (pr, qr) in enumerate(zip(p, q)):
+            pm, qm = sum(pr), sum(qr)
+            self.assertEqual(pm, qm)
+            if pm == 0:
+                null.append(h)
+                continue
+            positive.append(h)
+            self.assertGreater(qm, 0)
+            pc, qc = [v / pm for v in pr], [v / qm for v in qr]
+            self.assertEqual(pc, qc)
+            self.assertEqual(sum(pc), 1)
+        self.assertEqual(positive, [0, 1])
+        self.assertEqual(null, [2])
+
+    def test_m05_dirac_metric_separation(self):
+        from itertools import product
+        p, q = (F(0), F(1)), (F(1), F(0))
+        couplings = [(a, b, c, d) for a, b, c, d in product(range(2), repeat=4)
+                     if (a + b, c + d) == p and (a + c, b + d) == q]
+        self.assertEqual(couplings, [(0, 0, 1, 0)])
+        for n in range(1, 33):
+            sites = (F(0), F(1, n))
+            self.assertNotEqual(*sites)
+            self.assertEqual(sum(abs(a - b) for a, b in zip(p, q)) / 2, 1)
+            self.assertEqual((p[0], q[0], p[1], q[1]), (0, 1, 1, 0))
+            a, b, c, d = couplings[0]
+            self.assertEqual((b + c) * abs(sites[1] - sites[0]), F(1, n))
+        for k in range(1, 33):
+            self.assertLess(F(1, k + 1), F(1, k))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

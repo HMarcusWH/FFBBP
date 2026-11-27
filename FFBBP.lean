@@ -1,6 +1,7 @@
 import Mathlib.Data.Nat.Basic
 import FFBBP.Foundations.Structural
 import FFBBP.Foundations.FiniteProbability
+import FFBBP.Foundations.PrefixLaws
 
 namespace FFBBP
 
@@ -572,5 +573,10 @@ end AbstractExamples
 #print axioms FiniteProbability.m08_intersectionBounds
 #print axioms FiniteProbability.m10_midpointSharpness
 #print axioms FiniteProbability.m14_finiteTVContraction
+
+#print axioms PrefixLaws.m02_prefixMarginalization
+#print axioms PrefixLaws.m02_cylinderDynkinUniqueness
+#print axioms PrefixLaws.m02_conditionalLawAgreement
+#print axioms MetricExamples.m05_diracMetricSeparation
 
 end FFBBP
