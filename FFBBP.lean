@@ -1,5 +1,6 @@
 import Mathlib.Data.Nat.Basic
 import FFBBP.Foundations.Structural
+import FFBBP.Foundations.FiniteProbability
 
 namespace FFBBP
 
@@ -564,5 +565,12 @@ end AbstractExamples
 #print axioms StructuralFoundations.m08_logicalAlternatives
 #print axioms StructuralFoundations.m13_identifiedSetCharacterization
 #print axioms StructuralFoundations.m14_coarseningInclusion
+
+#print axioms FiniteProbability.m01_priorOddsCounts
+#print axioms FiniteProbability.m01_squaredRiskLowerBound
+#print axioms FiniteProbability.m06_totalVarianceNumerators
+#print axioms FiniteProbability.m08_intersectionBounds
+#print axioms FiniteProbability.m10_midpointSharpness
+#print axioms FiniteProbability.m14_finiteTVContraction
 
 end FFBBP

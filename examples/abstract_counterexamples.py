@@ -178,5 +178,90 @@ class AbstractCounterexamples(unittest.TestCase):
         self.assertEqual(F(1, 2) - F(0), F(1, 2))
 
 
+    def test_m01_prior_odds(self):
+        for p in range(1, 8):
+            for q in range(1, 8):
+                for l in range(1, 5):
+                    prior = (F(p, p + q), F(q, p + q))
+                    likelihood = F(l, 5)
+                    updated = tuple(x * likelihood for x in prior)
+                    post = tuple(x / sum(updated) for x in updated)
+                    self.assertEqual(post, prior)
+                    self.assertEqual(post[0] / post[1], F(p, q))
+
+    def test_m01_squared_risk_lower_bound(self):
+        from itertools import product
+        for a, b in product(range(5), repeat=2):
+            for x, y in product(range(7), repeat=2):
+                for p in (F(1, 4), F(1, 2), F(3, 4)):
+                    ra = p * (x - a) ** 2 + (1 - p) * (y - a) ** 2
+                    rb = p * (x - b) ** 2 + (1 - p) * (y - b) ** 2
+                    self.assertGreaterEqual(max(ra, rb), F((a - b) ** 2, 4))
+
+    def test_m06_total_variance(self):
+        groups = [
+            ((F(1, 3), F(2, 3)), (F(1, 4), F(3, 4))),
+            ((F(0), F(2), F(5)), (F(1, 6), F(2, 6), F(3, 6))),
+            ((F(7),), (F(1),)),
+        ]
+        weights = (F(1, 5), F(3, 5), F(1, 5))
+        means = [sum(x * p for x, p in zip(xs, ps)) for xs, ps in groups]
+        grand = sum(w * m for w, m in zip(weights, means))
+        total = sum(w * sum(p * (x - grand) ** 2 for x, p in zip(xs, ps))
+                    for w, (xs, ps) in zip(weights, groups))
+        within = sum(w * sum(p * (x - m) ** 2 for x, p in zip(xs, ps))
+                     for w, m, (xs, ps) in zip(weights, means, groups))
+        between = sum(w * (m - grand) ** 2 for w, m in zip(weights, means))
+        self.assertEqual(total, within + between)
+        raw = sum(w * sum(p * x ** 2 for x, p in zip(xs, ps))
+                  for w, (xs, ps) in zip(weights, groups))
+        mean_sq = sum(w * m ** 2 for w, m in zip(weights, means))
+        self.assertEqual(raw - grand ** 2, (raw - mean_sq) + (mean_sq - grand ** 2))
+        self.assertGreaterEqual(raw, mean_sq)
+        self.assertGreaterEqual(mean_sq, grand ** 2)
+
+    def test_m08_intersection_bounds(self):
+        from itertools import product
+        for both, a, b, neither in product(range(4), repeat=4):
+            total = both + a + b + neither
+            if not total:
+                continue
+            p, q, intersection = F(both + a, total), F(both + b, total), F(both, total)
+            self.assertLessEqual(max(F(0), p + q - 1), intersection)
+            self.assertLessEqual(intersection, min(p, q))
+
+    def test_m10_midpoint_sharpness(self):
+        from itertools import product
+        for a, b in product((F(0), F(1, 3), F(1), F(7, 3)), repeat=2):
+            midpoint = (a + b) / 2
+            self.assertEqual((midpoint - a) ** 2, (a - b) ** 2 / 4)
+            self.assertEqual((midpoint - b) ** 2, (a - b) ** 2 / 4)
+
+    def test_m14_finite_tv_contraction(self):
+        from random import Random
+        rng = Random(714)
+        for _ in range(150):
+            n, m = rng.randint(1, 6), rng.randint(1, 5)
+            p_raw = [rng.randint(1, 8) for _ in range(n)]
+            q_raw = [rng.randint(1, 8) for _ in range(n)]
+            p = [F(x, sum(p_raw)) for x in p_raw]
+            q = [F(x, sum(q_raw)) for x in q_raw]
+            k = []
+            for _ in range(n):
+                raw = [rng.randint(1, 8) for _ in range(m)]
+                k.append([F(x, sum(raw)) for x in raw])
+            pk = [sum(p[i] * k[i][j] for i in range(n)) for j in range(m)]
+            qk = [sum(q[i] * k[i][j] for i in range(n)) for j in range(m)]
+            self.assertEqual(sum(pk), 1)
+            self.assertEqual(sum(qk), 1)
+            self.assertLessEqual(sum(abs(a - b) for a, b in zip(pk, qk)),
+                                 sum(abs(a - b) for a, b in zip(p, q)))
+        # Include a channel with zero weights and noninjective deterministic rows.
+        p, q = (F(1), F(0)), (F(0), F(1))
+        k = ((F(0), F(1)), (F(0), F(1)))
+        self.assertEqual(tuple(sum(p[i] * k[i][j] for i in range(2)) for j in range(2)),
+                         tuple(sum(q[i] * k[i][j] for i in range(2)) for j in range(2)))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
